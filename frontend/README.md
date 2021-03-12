@@ -1,6 +1,6 @@
-# frontend
+# Testing-platform Frontend
 
-> Testing platform frontend.
+> Testing platform frontend, vue + elementUI.
 
 ## Project setup
 
@@ -16,6 +16,23 @@ vue create frontend
 npm install
 ```
 
+Module `node-sass` install failed with error `gyp: No Xcode or CLT version detected`. Fix:
+
+- install xcode:
+
+```sh
+xcode-select --print-path
+sudo rm -rf $(xcode-select --print-path)
+xcode-select --install
+```
+
+- re install `node-sass` module with fix version:
+
+```sh
+npm uninstall node-sass
+npm install node-sass@4.14.1
+```
+
 3. Fix audit error for npm install
 
 ```sh
@@ -27,4 +44,10 @@ npm audit fix --force
 ```sh
 npm run serve
 ```
+
+## Project Structure
+
+- `vue.config.js`: vue configurations.
+- `src/main.js`: vue entry point.
+- `src/App.vue`, `public/index.html`: vue template page.
 
