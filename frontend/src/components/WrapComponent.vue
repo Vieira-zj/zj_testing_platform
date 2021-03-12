@@ -21,6 +21,7 @@
           <slot name="form"></slot>
         </div>
       </div>
+      <!-- 表格和操作列 -->
       <div class="content-table">
         <slot name="table"></slot>
       </div>

@@ -20,6 +20,7 @@
       </ul>
     </div>
 
+    <!-- 右上角区域 -->
     <div class="user-info">
       <el-dropdown class="cur-user">
         <p class="el-dropdown-link login-user"
@@ -139,7 +140,6 @@ export default {
     return {
       passwordDialog: false,
       userInfoDialog: false,
-      dialogVisible: true,
       winHeight: window.innerHeight - 66,
       userInfo: { username: 'test', nickname: 'test', roleName: 'test' },
       form: {

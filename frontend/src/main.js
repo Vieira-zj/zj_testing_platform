@@ -23,6 +23,7 @@ Vue.config.productionTip = false
 Vue.use(axios)
 Vue.use(Element)
 
+// render App.vue to public/index.html "app" div
 new Vue({
   router,
   render: h => h(App),

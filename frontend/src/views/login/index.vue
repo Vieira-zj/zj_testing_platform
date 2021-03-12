@@ -75,11 +75,11 @@ export default {
     let oldLoginTime = localStorage.getItem('loginTime') - 0
     let sevenDay = new Date().setDate(new Date().getDate() - 7)
     if (sevenDay > oldLoginTime) {
+      // login info expired
       localStorage.removeItem('loginInfo')
       localStorage.removeItem('loginTime')
       return
     }
-
     let loginInfoLocal = localStorage.getItem('loginInfo')
     if (loginInfoLocal) {
       let loginInfo = JSON.parse(loginInfoLocal)
@@ -120,7 +120,7 @@ export default {
                   'authMenus',
                   JSON.stringify(data.auth || [])
                 )
-                this.setUserInfo()
+                this.setLoginInfo()
                 this.$router.push('/')
               }
             })
@@ -130,7 +130,7 @@ export default {
         }
       })
     },
-    setUserInfo() {
+    setLoginInfo() {
       if (this.form.rememberMe) {
         localStorage.setItem('loginInfo', JSON.stringify(this.form))
         localStorage.setItem('loginTime', new Date().getTime().toLocaleString())
