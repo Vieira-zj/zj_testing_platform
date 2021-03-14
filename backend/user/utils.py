@@ -7,6 +7,8 @@ from user.models import Role, UserRole
 from user.serializers import RoleAuthSerializer
 from user.serializers import UserLoginSerializer
 
+# these 2 handlers are set default in backend/settings.py
+
 
 def jwt_response_payload_handler(token, user=None, request=None):
     role_id = UserRole.objects.get(user_id=user.id).role_id

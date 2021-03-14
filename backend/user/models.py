@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
+# orm, model建立了代码和数据库的映射
 
 
 class BaseTable(models.Model):

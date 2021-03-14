@@ -8,6 +8,7 @@
              alt="logo" />
         <span>测试平台</span>
       </router-link>
+
       <!-- 顶部导航栏 -->
       <ul class="header-nav">
         <router-link tag="li"
@@ -18,17 +19,17 @@
           <span>{{ auth.name }}</span>
         </router-link>
       </ul>
-    </div>
 
-    <!-- 右上角区域 -->
-    <div class="user-info">
-      <el-dropdown class="cur-user">
-        <p class="el-dropdown-link login-user"
-           style="cursor: pointer">
-          <img class="default"
-               src="../../assets/image/user-icon.png"
-               alt />
-          <span>{{ userInfo.nickname }}</span>
+      <!-- 右上角区域 -->
+      <div class="user-info">
+        <el-dropdown class="cur-user">
+          <p class="el-dropdown-link login-user"
+             style="cursor: pointer">
+            <img class="default"
+                 src="../../assets/image/user-icon.png"
+                 alt />
+            <span>{{ userInfo.nickname }}</span>
+          </p>
           <el-dropdown-menu slot="dropdown"
                             class="user-action">
             <el-dropdown-item>
@@ -50,8 +51,8 @@
               </div>
             </el-dropdown-item>
           </el-dropdown-menu>
-        </p>
-      </el-dropdown>
+        </el-dropdown>
+      </div>
 
       <el-dialog title="修改密码"
                  width="700px"

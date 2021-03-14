@@ -6,6 +6,7 @@ from user import views
 urlpatterns = [
     path(r"login", views.UserLogin.as_view()),
 
+    # 用户增删改查
     path(r"", views.UserViewSet.as_view({
         "get": "list",
         "post": "create"

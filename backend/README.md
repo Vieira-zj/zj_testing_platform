@@ -22,14 +22,14 @@ pip install --default-timeout=6000 -i https://pypi.tuna.tsinghua.edu.cn/simple -
 django-admin startapp user
 ```
 
-4. Sync model to db, and create table:
+4. Sync model to db, and create table
 
 ```sh
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-5. Load test user data:
+5. Load test user data
 
 ```sh
 python manage.py loaddata user
@@ -44,4 +44,28 @@ python manage.py runserver
 ```
 
 ## Project Structure
+
+- `backend/settings`: 全局项目配置
+- `user/fixtures`: 数据准备
+- `user/models.py`: 数据模型（orm）
+- `user/serializers`: 数据序列化
+- `user/urls.py`: 路由
+- `user/view.py`: 后端逻辑处理
+
+## SQLite3 Cli
+
+```text
+sqlite3 db.sqlite3
+
+.headers on
+.mode column
+.timer on
+
+.tables
+
+select * from user;
+select * from role;
+
+.quit
+```
 

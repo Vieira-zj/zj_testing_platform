@@ -59,6 +59,7 @@ class UserViewSet(GenericViewSet):
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
+        # username和nickname模糊查询
         keyword = request.GET.get("keyword")
         if keyword:
             queryset = User.objects.filter(
@@ -88,8 +89,8 @@ class UserViewSet(GenericViewSet):
         user_create_serializer = UserCreateSerializer(data=user)
         user_create_serializer.is_valid(raise_exception=True)
         user_create_serializer.save()
-        user_id = User.objects.get(username=user["username"]).id
 
+        user_id = User.objects.get(username=user["username"]).id
         user_role = {
             "user_id": user_id,
             "role_id": ""
@@ -118,8 +119,8 @@ class UserViewSet(GenericViewSet):
         user_serializer = self.get_serializer(instance, data=user)
         user_serializer.is_valid(raise_exception=True)
         user_serializer.save()
-        user_id = User.objects.get(username=user["username"]).id
 
+        user_id = User.objects.get(username=user["username"]).id
         user_role = {
             "user_id": user_id,
             "role_id": ""

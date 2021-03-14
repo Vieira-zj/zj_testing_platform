@@ -8,6 +8,8 @@ from rest_framework_jwt.authentication import jwt_decode_handler
 
 from user.models import User
 
+# custom jwt auth component is register in backend/settings.py
+
 
 class CustomJSONWebTokenAuthentication(BaseJSONWebTokenAuthentication):
     def authenticate(self, request):
