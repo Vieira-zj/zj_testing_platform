@@ -6,9 +6,10 @@
       <slot name="operate"></slot>
     </div>
 
+    <!-- 顶部信息 -->
     <div class="content-info">
       <template v-if="searchLayout === 2">
-        <!-- 顶部信息 -->
+        <!-- 上下布局 -->
         <div class="content-header">
           <div class="info-name">{{ tableTitle }}</div>
         </div>
@@ -16,6 +17,7 @@
       </template>
       <div class="content-header clear"
            v-else>
+        <!-- 左右布局 -->
         <div class="self-left info-name">{{ tableTitle }}</div>
         <div class="self-right">
           <slot name="form"></slot>

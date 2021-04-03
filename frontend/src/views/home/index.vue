@@ -121,6 +121,7 @@
       </el-dialog>
     </div>
 
+    <!-- main -->
     <el-main class="page-main"
              :style="{ height: winHeight + 'px' }">
       <router-view></router-view>

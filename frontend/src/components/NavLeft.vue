@@ -29,6 +29,7 @@
           </el-breadcrumb-item>
         </el-breadcrumb>
       </el-header>
+      <!-- main -->
       <el-main style="padding: 0 20px!important;">
         <router-view></router-view>
       </el-main>
