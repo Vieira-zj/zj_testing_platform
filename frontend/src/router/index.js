@@ -40,11 +40,11 @@ const routes = [
             component: () => import('@/views/console/userManagement.vue'),
           },
           {
-            path: 'componentTest',
+            path: 'testcasesTree',
             meta: {
               title: '组件测试',
             },
-            component: () => import('@/views/test'),
+            component: () => import('@/views/testcases'),
           },
         ]
       },

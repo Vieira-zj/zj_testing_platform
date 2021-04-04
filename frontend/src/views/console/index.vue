@@ -8,7 +8,7 @@
       </el-menu-item>
     </div>
     <div slot="menuItem">
-      <el-menu-item index="/console/componentTest">
+      <el-menu-item index="/console/testcasesTree">
         <i class="el-icon-suitcase"></i>
         <span slot="title">组件测试</span>
       </el-menu-item>
