@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="test-title">
-      <span>测试用例</span>
+      <span>测试用例集</span>
     </div>
 
     <!-- test cases tree -->
@@ -123,6 +123,7 @@ let mockTreeData = {
   ],
 }
 
+// init global tree data with ui status
 let initTreeData = function () {
   let setTreeDataStatus = function (root) {
     root.select = false
@@ -137,13 +138,13 @@ let initTreeData = function () {
   }
 
   setTreeDataStatus(mockTreeData)
-  mockTreeData.select = true
+  mockTreeData.select = true // root is default selected
 }
 
 initTreeData()
 
 export default {
-  name: 'ComponentTest',
+  name: 'TestcasesTreeTest',
   components: {
     TreeItem,
   },
@@ -190,8 +191,13 @@ export default {
       this.selectedItem.select = false
       item.select = true
       this.selectedItem = item
+
       // TODO: fetch test case details
-      this.ruleForm.name = item.name
+      if (item.children && item.children.length > 0) {
+        this.ruleForm.name = ''
+      } else {
+        this.ruleForm.name = item.name
+      }
     },
     makeFolder(item) {
       this.$set(item, 'children', [])
@@ -204,7 +210,8 @@ export default {
       item.open = true
     },
     removeItem(item) {
-      // 注意：删除一个元素后，会导致列表后面的元素重新加载（mount），item状态被重置。
+      // 问题：删除一个元素后，会导致列表后面的元素重新加载（mount），item状态被重置。
+      // 解决：将item状态保存在全局变量中。
       this.removeItemFromTree(this.treeData, item)
       if (this.ruleForm.name === item.name) {
         this.ruleForm.name = ''
@@ -227,10 +234,10 @@ export default {
       }
     },
     foldAll() {
-      let unfold = function (item) {
+      let fold = function (item) {
         item.open = false
       }
-      this.iterateTreeItem(this.treeData, unfold)
+      this.iterateTreeItem(this.treeData, fold)
     },
     unfoldAll() {
       let unfold = function (item) {

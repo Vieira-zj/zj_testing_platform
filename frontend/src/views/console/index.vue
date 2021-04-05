@@ -10,7 +10,7 @@
     <div slot="menuItem">
       <el-menu-item index="/console/testcasesTree">
         <i class="el-icon-suitcase"></i>
-        <span slot="title">组件测试</span>
+        <span slot="title">测试用例</span>
       </el-menu-item>
     </div>
   </nav-left>

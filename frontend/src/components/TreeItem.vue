@@ -18,16 +18,18 @@
         <i class="el-icon-document"></i>
       </span>
       {{ item.name }}
-      <span v-if="isFolder && isHover"
+      <span v-if="isFolder"
             @click.stop=""
             @dblclick.stop="">
         <i class="el-icon-circle-plus-outline"
+           v-show="isHover"
            @click="$emit('add-item', item)"></i>
       </span>
-      <span v-if="!isFolder && isHover"
+      <span v-else
             @click.stop=""
             @dblclick.stop="">
         <i class="el-icon-remove-outline"
+           v-show="isHover"
            @click="$emit('remove-item', item)"></i>
       </span>
     </div>
@@ -35,6 +37,7 @@
     <!-- children -->
     <div v-show="isOpen"
          v-if="isFolder">
+      <!-- 事件通过 tree-item 向上传递 -->
       <tree-item class="treeitem"
                  v-for="(child, index) in item.children"
                  :key="index"
@@ -97,17 +100,15 @@ export default {
   margin: 5px 0 5px 0;
   cursor: pointer;
 }
-.bold {
-  font-weight: bold;
-}
-.select {
-  background-color: #81bdf5;
-}
-#item:hover {
-  background-color: #81bdf5;
-}
 .treeitem {
   margin: 5px 0 5px 10px;
   cursor: pointer;
+}
+.bold {
+  font-weight: bold;
+}
+.select,
+#item:hover {
+  background-color: #81bdf5;
 }
 </style>
