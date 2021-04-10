@@ -12,6 +12,7 @@
     "core-js": "^3.6.5",
     "element-ui": "^2.13.1",
     "vue": "^2.6.11",
+    "vue-draggable-nested-tree": "^3.0.0-beta2",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

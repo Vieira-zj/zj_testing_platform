@@ -9,9 +9,9 @@
          @mouseenter="enter"
          @mouseleave="leave">
       <span v-if="isFolder">
-        <i v-if="isOpen"
+        <i v-show="isOpen"
            class="el-icon-folder-opened"></i>
-        <i v-else
+        <i v-show="!isOpen"
            class="el-icon-folder"></i>
       </span>
       <span v-else>

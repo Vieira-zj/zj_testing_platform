@@ -8,9 +8,15 @@
       </el-menu-item>
     </div>
     <div slot="menuItem">
-      <el-menu-item index="/console/testcasesTree">
+      <el-menu-item index="/console/testcases">
         <i class="el-icon-suitcase"></i>
-        <span slot="title">测试用例</span>
+        <span slot="title">TestCases</span>
+      </el-menu-item>
+    </div>
+    <div slot="menuItem">
+      <el-menu-item index="/console/draggableTestcasesTree">
+        <i class="el-icon-suitcase"></i>
+        <span slot="title">DraggableTCsTree</span>
       </el-menu-item>
     </div>
   </nav-left>
