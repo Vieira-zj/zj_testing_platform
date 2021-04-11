@@ -2,18 +2,20 @@
   <div>
     <test-cases-template>
       <div slot="testcasesTree">
-        <el-tooltip
-          content="You can double click on an item to turn it into a folder."
-          placement="top"
-        >
-          <i class="el-icon-help op-icon"></i>
-        </el-tooltip>
-        <el-tooltip content="Expand All" placement="top">
-          <i class="el-icon-s-unfold op-icon" @click="unfoldAll"></i>
-        </el-tooltip>
-        <el-tooltip content="Collapse All" placement="top">
-          <i class="el-icon-s-fold op-icon" @click="foldAll"></i>
-        </el-tooltip>
+        <div>
+          <el-tooltip
+            content="You can double click on an item to turn it into a folder."
+            placement="top"
+          >
+            <i class="el-icon-help op-icon"></i>
+          </el-tooltip>
+          <el-tooltip content="Expand All" placement="top">
+            <i class="el-icon-s-unfold op-icon" @click="unfoldAll"></i>
+          </el-tooltip>
+          <el-tooltip content="Collapse All" placement="top">
+            <i class="el-icon-s-fold op-icon" @click="foldAll"></i>
+          </el-tooltip>
+        </div>
         <tree-item
           class="item"
           :item="treeData"
@@ -83,7 +85,7 @@ let initTreeData = function() {
 initTreeData()
 
 export default {
-  name: 'TestcasesTreeTest',
+  name: 'TestCasesTree',
   components: {
     TestCasesTemplate: testCasesTemplate,
     TreeItem,

@@ -7,18 +7,6 @@
         <span slot="title">用户管理</span>
       </el-menu-item>
     </div>
-    <div slot="menuItem">
-      <el-menu-item index="/console/testcases">
-        <i class="el-icon-suitcase"></i>
-        <span slot="title">TestCases</span>
-      </el-menu-item>
-    </div>
-    <div slot="menuItem">
-      <el-menu-item index="/console/draggableTestcasesTree">
-        <i class="el-icon-suitcase"></i>
-        <span slot="title">DraggableTCsTree</span>
-      </el-menu-item>
-    </div>
   </nav-left>
 </template>
 

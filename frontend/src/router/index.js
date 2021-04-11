@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import login from '@/views/login'
 import home from '@/views/home'
 import console from '@/views/console'
+import test from '@/views/test'
 
 Vue.use(VueRouter)
 
@@ -39,21 +40,39 @@ const routes = [
             },
             component: () => import('@/views/console/userManagement.vue'),
           },
-          {
-            path: 'testcases',
-            meta: {
-              title: 'TestCases',
-            },
-            component: () => import('@/views/testcases'),
-          },
-          {
-            path: 'draggableTestcasesTree',
-            meta: {
-              title: 'DraggableTCsTree',
-            },
-            component: () => import('@/views/testcases/draggableTCsTree'),
-          },
         ]
+      },
+      {
+        path: 'test',
+        name: 'test',
+        meta: {
+          title: '组件测试',
+        },
+        component: test,
+        redirect: 'test/testCasesTree',
+        children: [
+          {
+            path: 'testCasesTree',
+            meta: {
+              title: 'TestCasesTree',
+            },
+            component: () => import('@/views/test/testCasesTree'),
+          },
+          {
+            path: 'testCasesHeTree',
+            meta: {
+              title: 'TCsHeTree',
+            },
+            component: () => import('@/views/test/testCasesHeTree'),
+          },
+          {
+            path: 'testCasesDraggableTree',
+            meta: {
+              title: 'TCsDraggableTree',
+            },
+            component: () => import('@/views/test/testCasesDraggableTree'),
+          },
+        ],
       },
     ]
   },

@@ -2,22 +2,27 @@
   <div>
     <test-cases-template>
       <div slot="testcasesTree">
+        <!-- draggable-tree refer: https://github.com/phphe/vue-draggable-nested-tree -->
+        <!-- Note: tree scss cannot be "scoped". -->
         <draggable-tree
-          class="tree"
           :data="treedata"
           :draggable="true"
           cross-tree="cross-tree"
         >
+          <!-- data is node, store is tree -->
           <div slot-scope="{ data, store }">
             <template v-if="!data.isDragPlaceHolder">
-              <b
+              <span
                 v-if="data.children && data.children.length"
                 @click="store.toggleOpen(data)"
               >
-                {{ data.open ? '-' : '+' }}&nbsp;
-              </b>
-              <span>
-                {{ data.text }}
+                <i class="el-icon-folder-opened" v-if="data.open"></i>
+                <i class="el-icon-folder" v-else></i>
+                &nbsp;<b>{{ data.text }}</b>
+              </span>
+              <span v-else>
+                <i class="el-icon-document"></i>
+                &nbsp;{{ data.text }}
               </span>
             </template>
           </div>
@@ -33,10 +38,10 @@
 
 <script>
 import testCasesTemplate from './testCasesTemplate.vue'
-import { DraggableTree } from 'vue-draggable-nested-tree'
 import TestCaseForm from '@/components/TestCaseForm'
+import { DraggableTree } from 'vue-draggable-nested-tree'
 
-let treeData = [
+let treedata = [
   { text: 'node 1' },
   { text: 'node 2' },
   { text: 'node 3 undraggable', draggable: false },
@@ -72,64 +77,47 @@ let treeData = [
 ]
 
 export default {
-  name: 'DraggableTestCases',
+  name: 'TestCasesDraggableTree',
   components: {
     TestCasesTemplate: testCasesTemplate,
-    DraggableTree,
     TestCaseForm,
+    DraggableTree,
   },
   data() {
     return {
-      treedata: treeData,
+      treedata: treedata,
       tcName: '',
     }
   },
 }
 </script>
 
-<style lang="scss" scoped>
-.test-title {
-  font-weight: 600;
-  font-size: 20px;
-  margin-bottom: 8px;
-}
-.test-container {
-  height: auto;
-  border-radius: 4px;
-  background-color: #fff;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-}
-.test-aside {
-  border-right: 1px solid #eee;
-  background-color: rgba(144, 147, 153, 0.06);
-}
-
+<style lang="scss">
 .he-tree {
   border: 1px solid #ccc;
   padding: 20px;
-}
-.tree-node-inner {
-  padding: 5px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-}
-.draggable-placeholder-inner {
-  border: 1px dashed #0088f8;
-  box-sizing: border-box;
-  background: rgba(0, 136, 249, 0.09);
-  color: #0088f9;
-  text-align: center;
-  padding: 0;
-  display: flex;
-  align-items: center;
+  width: 300px;
 }
 .tree {
+  // .tree-node {}
   .tree-node-inner {
     border: none;
     padding: 0px;
+    cursor: pointer;
   }
   .tree-node-inner-back:hover {
     background: #ddd;
+  }
+  // .draggable-placeholder {}
+  .draggable-placeholder-inner {
+    border: 1px dashed #0088f8;
+    box-sizing: border-box;
+    background: rgba(0, 136, 249, 0.09);
+    color: #0088f9;
+    text-align: center;
+    padding: 0;
+    display: flex;
+    align-items: center;
   }
 }
 </style>

@@ -2,20 +2,20 @@
   <div class="common-layout-1">
     <div class="header">
       <!-- 左上角logo -->
-      <router-link :to="{ name: 'home' }"
-                   class="logo">
-        <img src="../../assets/image/logo.png"
-             alt="logo" />
+      <router-link :to="{ name: 'home' }" class="logo">
+        <img src="../../assets/image/logo.png" alt="logo" />
         <span>测试平台</span>
       </router-link>
 
       <!-- 顶部导航栏 -->
       <ul class="header-nav">
-        <router-link tag="li"
-                     v-for="auth in authList"
-                     :key="auth.id"
-                     :to="{ name: auth.id }"
-                     :class="{ current: currentActive(auth.id) }">
+        <router-link
+          tag="li"
+          v-for="auth in authList"
+          :key="auth.id"
+          :to="{ name: auth.id }"
+          :class="{ current: currentActive(auth.id) }"
+        >
           <span>{{ auth.name }}</span>
         </router-link>
       </ul>
@@ -23,15 +23,11 @@
       <!-- 右上角区域 -->
       <div class="user-info">
         <el-dropdown class="cur-user">
-          <p class="el-dropdown-link login-user"
-             style="cursor: pointer">
-            <img class="default"
-                 src="../../assets/image/user-icon.png"
-                 alt />
+          <p class="el-dropdown-link login-user" style="cursor: pointer">
+            <img class="default" src="../../assets/image/user-icon.png" alt />
             <span>{{ userInfo.nickname }}</span>
           </p>
-          <el-dropdown-menu slot="dropdown"
-                            class="user-action">
+          <el-dropdown-menu slot="dropdown" class="user-action">
             <el-dropdown-item>
               <div @click="changePassword">
                 <i class="fa el-icon-edit"></i>
@@ -54,76 +50,81 @@
         </el-dropdown>
       </div>
 
-      <el-dialog title="修改密码"
-                 width="700px"
-                 :modal-append-to-body="false"
-                 :visible.sync="passwordDialog"
-                 :close-on-click-modal="false">
-        <el-form :model="form"
-                 :rules="rules"
-                 ref="form"
-                 label-width="150px"
-                 label-position="right">
-          <el-form-item label="当前密码"
-                        prop="old">
-            <el-input class="input-380"
-                      v-model.trim="form.old"
-                      placeholder="请输入"
-                      type="password"
-                      show-password
-                      @input="clearChinese($event, 'old')"></el-input>
+      <el-dialog
+        title="修改密码"
+        width="700px"
+        :modal-append-to-body="false"
+        :visible.sync="passwordDialog"
+        :close-on-click-modal="false"
+      >
+        <el-form
+          :model="form"
+          :rules="rules"
+          ref="form"
+          label-width="150px"
+          label-position="right"
+        >
+          <el-form-item label="当前密码" prop="old">
+            <el-input
+              class="input-380"
+              v-model.trim="form.old"
+              placeholder="请输入"
+              type="password"
+              show-password
+              @input="clearChinese($event, 'old')"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="新密码"
-                        prop="new">
-            <el-input class="input-380"
-                      v-model.trim="form.new"
-                      placeholder="请输入"
-                      type="password"
-                      show-password
-                      @input="clearChinese($event, 'new')"></el-input>
+          <el-form-item label="新密码" prop="new">
+            <el-input
+              class="input-380"
+              v-model.trim="form.new"
+              placeholder="请输入"
+              type="password"
+              show-password
+              @input="clearChinese($event, 'new')"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="确认新密码"
-                        prop="repeat">
-            <el-input class="input-380"
-                      v-model.trim="form.repeat"
-                      placeholder="请输入"
-                      type="password"
-                      show-password></el-input>
+          <el-form-item label="确认新密码" prop="repeat">
+            <el-input
+              class="input-380"
+              v-model.trim="form.repeat"
+              placeholder="请输入"
+              type="password"
+              show-password
+            ></el-input>
           </el-form-item>
         </el-form>
         <p class="pwd-ts">注：{{ pwdRegText }}</p>
-        <span slot="footer"
-              class="dialog-footer">
+        <span slot="footer" class="dialog-footer">
           <el-button @click="resetForm">取 消</el-button>
-          <el-button type="primary"
-                     @click="submit"
-                     :loading="loading">确 定</el-button>
+          <el-button type="primary" @click="submit" :loading="loading"
+            >确 定</el-button
+          >
         </span>
       </el-dialog>
 
-      <el-dialog title="个人信息"
-                 width="500px"
-                 :modal-append-to-body="false"
-                 :visible.sync="userInfoDialog"
-                 :close-on-click-modal="false">
-        <el-form label-width="150px"
-                 label-position="right">
+      <el-dialog
+        title="个人信息"
+        width="500px"
+        :modal-append-to-body="false"
+        :visible.sync="userInfoDialog"
+        :close-on-click-modal="false"
+      >
+        <el-form label-width="150px" label-position="right">
           <el-form-item label="用户名：">{{ userInfo.username }}</el-form-item>
           <el-form-item label="昵称：">{{ userInfo.nickname }}</el-form-item>
           <el-form-item label="角色：">{{ userInfo.roleName }}</el-form-item>
         </el-form>
-        <span slot="footer"
-              class="dialog-footer">
-          <el-button type="primary"
-                     @click="confirm"
-                     :loading="loading">确 定</el-button>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="confirm" :loading="loading"
+            >确 定</el-button
+          >
         </span>
       </el-dialog>
     </div>
 
     <!-- main -->
-    <el-main class="page-main"
-             :style="{ height: winHeight + 'px' }">
+    <el-main class="page-main" :style="{ height: winHeight + 'px' }">
       <router-view></router-view>
     </el-main>
   </div>

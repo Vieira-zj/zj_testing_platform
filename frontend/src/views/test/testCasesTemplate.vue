@@ -3,8 +3,8 @@
     <div class="test-title">
       <span>测试用例集</span>
     </div>
-    <!-- test cases tree -->
     <el-container class="test-container">
+      <!-- test cases tree -->
       <el-aside class="test-aside" width="25%">
         <slot name="testcasesTree"></slot>
       </el-aside>

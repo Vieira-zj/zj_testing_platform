@@ -1,49 +1,58 @@
 <template>
-  <div class="login-body"
-       :style="`background-image: url(${require('@/assets/image/login-bg.png')})`">
+  <div
+    class="login-body"
+    :style="`background-image: url(${require('@/assets/image/login-bg.png')})`"
+  >
     <div class="login-box">
       <div class="login-title">
-        <img class="login-logo"
-             :src="require('@/assets/image/teprunner.png')"
-             alt="logo" />
+        <img
+          class="login-logo"
+          :src="require('@/assets/image/teprunner.png')"
+          alt="logo"
+        />
         <p>测试平台</p>
       </div>
       <div class="login-info">
-        <el-form ref="form"
-                 class="form-box"
-                 :model="form"
-                 :rules="formRules">
-          <el-form-item label="用户名"
-                        prop="username">
-            <el-input v-model="form.username"
-                      placeholder="请输入用户名"
-                      @keyup.enter.native="login"
-                      ref="username-input"></el-input>
+        <el-form ref="form" class="form-box" :model="form" :rules="formRules">
+          <el-form-item label="用户名" prop="username">
+            <el-input
+              v-model="form.username"
+              placeholder="请输入用户名"
+              @keyup.enter.native="login"
+              ref="username-input"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="密码"
-                        prop="password">
-            <el-input v-model="form.password"
-                      placeholder="请输入密码"
-                      type="password"
-                      show-password
-                      @keyup.enter.native="login"></el-input>
+          <el-form-item label="密码" prop="password">
+            <el-input
+              v-model="form.password"
+              placeholder="请输入密码"
+              type="password"
+              show-password
+              @keyup.enter.native="login"
+            ></el-input>
           </el-form-item>
           <el-form-item>
             <div class="clear">
-              <el-checkbox v-model="form.rememberMe"
-                           :value="true"
-                           label="记住密码"
-                           name="type"
-                           class="remember-checkbox"></el-checkbox>
-              <span class="self-right forgetPwd"
-                    @click="forgetPwd">忘记密码</span>
+              <el-checkbox
+                v-model="form.rememberMe"
+                :value="true"
+                label="记住密码"
+                name="type"
+                class="remember-checkbox"
+              ></el-checkbox>
+              <span class="self-right forgetPwd" @click="forgetPwd"
+                >忘记密码</span
+              >
             </div>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary"
-                       @click="login"
-                       class="login-btn"
-                       :loading="isLoading">{{ "登录" }}</el-button>
+            <el-button
+              type="primary"
+              @click="login"
+              class="login-btn"
+              :loading="isLoading"
+              >{{ '登录' }}</el-button
+            >
           </el-form-item>
         </el-form>
       </div>
