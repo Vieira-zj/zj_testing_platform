@@ -2,50 +2,51 @@
   <!-- refer: https://cn.vuejs.org/v2/examples/tree-view.html -->
   <!-- item -->
   <div>
-    <div id="item"
-         :class="{item: true, bold: isFolder, select: isSelect}"
-         @click="toggle(item)"
-         @dblclick="makeFolder"
-         @mouseenter="enter"
-         @mouseleave="leave">
+    <div
+      id="item"
+      :class="{ item: true, bold: isFolder, select: isSelect }"
+      @click="toggle(item)"
+      @dblclick="makeFolder"
+      @mouseenter="enter"
+      @mouseleave="leave"
+    >
       <span v-if="isFolder">
-        <i v-show="isOpen"
-           class="el-icon-folder-opened"></i>
-        <i v-show="!isOpen"
-           class="el-icon-folder"></i>
+        <i v-show="isOpen" class="el-icon-folder-opened"></i>
+        <i v-show="!isOpen" class="el-icon-folder"></i>
       </span>
       <span v-else>
         <i class="el-icon-document"></i>
       </span>
       {{ item.name }}
-      <span v-if="isFolder"
-            @click.stop=""
-            @dblclick.stop="">
-        <i class="el-icon-circle-plus-outline"
-           v-show="isHover"
-           @click="$emit('add-item', item)"></i>
+      <span v-if="isFolder" @click.stop="" @dblclick.stop="">
+        <i
+          class="el-icon-circle-plus-outline"
+          v-show="isHover"
+          @click="$emit('add-item', item)"
+        ></i>
       </span>
-      <span v-else
-            @click.stop=""
-            @dblclick.stop="">
-        <i class="el-icon-remove-outline"
-           v-show="isHover"
-           @click="$emit('remove-item', item)"></i>
+      <span v-else @click.stop="" @dblclick.stop="">
+        <i
+          class="el-icon-remove-outline"
+          v-show="isHover"
+          @click="$emit('remove-item', item)"
+        ></i>
       </span>
     </div>
 
     <!-- children -->
-    <div v-show="isOpen"
-         v-if="isFolder">
+    <div v-show="isOpen" v-if="isFolder">
       <!-- 事件通过 tree-item 向上传递 -->
-      <tree-item class="treeitem"
-                 v-for="(child, index) in item.children"
-                 :key="index"
-                 :item="child"
-                 @focus-item="$emit('focus-item', $event)"
-                 @make-folder="$emit('make-folder', $event)"
-                 @add-item="$emit('add-item', $event)"
-                 @remove-item="$emit('remove-item', $event)"></tree-item>
+      <tree-item
+        class="treeitem"
+        v-for="(child, index) in item.children"
+        :key="index"
+        :item="child"
+        @focus-item="$emit('focus-item', $event)"
+        @make-folder="$emit('make-folder', $event)"
+        @add-item="$emit('add-item', $event)"
+        @remove-item="$emit('remove-item', $event)"
+      ></tree-item>
     </div>
   </div>
 </template>
@@ -97,11 +98,11 @@ export default {
 
 <style lang="scss" scoped>
 .item {
-  margin: 5px 0 5px 0;
+  margin: 7px 0 7px 0;
   cursor: pointer;
 }
 .treeitem {
-  margin: 5px 0 5px 10px;
+  margin: 7px 0 7px 10px;
   cursor: pointer;
 }
 .bold {

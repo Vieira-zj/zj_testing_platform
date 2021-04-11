@@ -1,15 +1,37 @@
 <template>
   <div>
     <test-cases-template>
+      <div slot="toolsBar">
+        <el-tooltip content="Expand All" placement="top">
+          <i
+            class="el-icon-s-unfold"
+            @click="expandAll"
+            style="margin: 5px"
+          ></i>
+        </el-tooltip>
+        <el-tooltip content="Collapse All" placement="top">
+          <i
+            class="el-icon-s-fold"
+            @click="collapseAll"
+            style="margin: 5px"
+          ></i>
+        </el-tooltip>
+      </div>
+
       <div slot="testcasesTree">
         <!-- he-tree refer: https://he-tree-vue.phphe.com/zh/guide.html -->
         <!-- Note: tree scss cannot be "scoped". -->
-        <he-tree :value="treedata">
+        <he-tree
+          :value="treedata"
+          :draggable="true"
+          :crossTree="false"
+          edgeScroll
+        >
           <span slot-scope="{ node, path, tree }">
             <span v-if="node.children" @click="tree.toggleFold(node, path)">
               <i class="el-icon-folder" v-if="node.$folded"></i>
               <i class="el-icon-folder-opened" v-else></i>
-              &nbsp;{{ node.text }}
+              &nbsp;<b>{{ node.text }}</b>
             </span>
             <span v-else>
               <i class="el-icon-document"></i>
@@ -30,7 +52,7 @@
 import testCasesTemplate from './testCasesTemplate.vue'
 import TestCaseForm from '@/components/TestCaseForm'
 import 'he-tree-vue/dist/he-tree-vue.css'
-import { Tree, Fold, Draggable } from 'he-tree-vue'
+import { Tree, Fold, Draggable, foldAll, unfoldAll } from 'he-tree-vue'
 
 let treedata = [
   { text: 'node 1' },
@@ -76,14 +98,20 @@ export default {
       tcName: '',
     }
   },
+  methods: {
+    expandAll() {
+      unfoldAll(this.treedata)
+    },
+    collapseAll() {
+      foldAll(this.treedata)
+    },
+  },
 }
 </script>
 
 <style lang="scss">
 .he-tree {
-  border: 1px solid #ccc;
-  padding: 20px;
-  width: 300px;
+  padding: 8px 0 0 5px;
 }
 .tree-root {
   .tree-node {

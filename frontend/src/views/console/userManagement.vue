@@ -1,84 +1,109 @@
 <template>
   <div>
     <wrap-component tableTitle="全部用户">
-      <el-button type="primary"
-                 class="pri-add-btn"
-                 icon="el-icon-circle-plus"
-                 @click="onOperate('new')"
-                 slot="operate">
+      <el-button
+        type="primary"
+        class="pri-add-btn"
+        icon="el-icon-circle-plus"
+        @click="onOperate('new')"
+        slot="operate"
+      >
         新增用户
       </el-button>
 
-      <el-form slot="form"
-               :model="searchForm"
-               ref="searchForm"
-               :inline="true"
-               class="search-form">
-        <el-form-item label="用户名 / 昵称"
-                      prop="keyword">
-          <el-input v-model="searchForm.keyword"
-                    placeholder="用户名 / 昵称"></el-input>
+      <!-- 查询 -->
+      <el-form
+        slot="form"
+        :model="searchForm"
+        ref="searchForm"
+        :inline="true"
+        class="search-form"
+      >
+        <el-form-item label="用户名 / 昵称" prop="keyword">
+          <el-input
+            v-model="searchForm.keyword"
+            placeholder="用户名 / 昵称"
+          ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button @click="getUserList"
-                     type="primary"
-                     icon="el-icon-search">搜索</el-button>
-          <el-button @click="resetForm"
-                     icon="el-icon-refresh-left">重置</el-button>
+          <el-button @click="getUserList" type="primary" icon="el-icon-search"
+            >搜索</el-button
+          >
+          <el-button @click="resetForm" icon="el-icon-refresh-left"
+            >重置</el-button
+          >
         </el-form-item>
       </el-form>
 
-      <el-table slot="table"
-                :data="tableData"
-                v-loading="loading"
-                :header-cell-style="{
+      <!-- 用户列表 -->
+      <el-table
+        slot="table"
+        :data="tableData"
+        v-loading="loading"
+        :header-cell-style="{
           background: 'rgba(144, 147, 153, 0.06)',
           color: 'rgba(0, 0, 0, 0.65)',
           fontSize: '14px',
-        }">
-        <el-table-column prop="username"
-                         label="用户名"
-                         show-overflow-tooltip></el-table-column>
-        <el-table-column prop="nickname"
-                         label="昵称"
-                         show-overflow-tooltip></el-table-column>
-        <el-table-column prop="roleName"
-                         label="角色"></el-table-column>
-        <el-table-column label="操作"
-                         width="320px">
+        }"
+      >
+        <el-table-column
+          prop="username"
+          label="用户名"
+          show-overflow-tooltip
+        ></el-table-column>
+        <el-table-column
+          prop="nickname"
+          label="昵称"
+          show-overflow-tooltip
+        ></el-table-column>
+        <el-table-column prop="roleName" label="角色"></el-table-column>
+        <el-table-column label="操作" width="320px">
           <template slot-scope="scope">
             <div>
-              <el-button type="info"
-                         size="mini"
-                         plain
-                         @click="resetPWD(scope.row.id)">重置密码</el-button>
-              <el-button type="info"
-                         size="mini"
-                         plain
-                         @click="onOperate('edit', scope.row.id)">编辑</el-button>
-              <el-button type="danger"
-                         size="mini"
-                         plain
-                         @click="onDel('删除', scope.row)">删除</el-button>
+              <el-button
+                type="info"
+                size="mini"
+                plain
+                @click="resetPWD(scope.row.id)"
+                >重置密码</el-button
+              >
+              <el-button
+                type="info"
+                size="mini"
+                plain
+                @click="onOperate('edit', scope.row.id)"
+                >编辑</el-button
+              >
+              <el-button
+                type="danger"
+                size="mini"
+                plain
+                @click="onDel('删除', scope.row)"
+                >删除</el-button
+              >
             </div>
           </template>
         </el-table-column>
       </el-table>
 
-      <div class="content-footer clear"
-           slot="footer">
+      <!-- 分页 -->
+      <div class="content-footer clear" slot="footer">
         <div class="block page-list self-right">
-          <vue-pagination v-bind="pageParams"
-                          @sizeChange="changeSize"
-                          @currentPageChange="changeCurrentPage" />
+          <vue-pagination
+            v-bind="pageParams"
+            @sizeChange="changeSize"
+            @currentPageChange="changeCurrentPage"
+          />
         </div>
       </div>
     </wrap-component>
 
-    <add-user-dialog :dialogFormVisible.sync="dialogFormVisible"
-                     :dialogTitle="dialogTitle"
-                     :id="curId"
-                     @success="resetForm" />
+    <add-user-dialog
+      :dialogFormVisible.sync="dialogFormVisible"
+      :dialogTitle="dialogTitle"
+      :id="curId"
+      @success="resetForm"
+    />
   </div>
 </template>
 

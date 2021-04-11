@@ -1,31 +1,39 @@
 <template>
   <div class="page-wrap">
-    <el-dialog :title="dialogTitle"
-               :visible="visible"
-               width="600px"
-               :close-on-click-modal="false"
-               @close="onResetForm">
-      <el-form :model="userForm"
-               ref="userFormRef"
-               label-width="100px"
-               :rules="rules"
-               class="form-common">
-        <el-form-item label="用户名"
-                      prop="username">
-          <el-input v-model="userForm.username"
-                    placeholder="请输入用户名"
-                    class="input-380"></el-input>
+    <el-dialog
+      :title="dialogTitle"
+      :visible="visible"
+      width="600px"
+      :close-on-click-modal="false"
+      @close="onResetForm"
+    >
+      <el-form
+        :model="userForm"
+        ref="userFormRef"
+        label-width="100px"
+        :rules="rules"
+        class="form-common"
+      >
+        <el-form-item label="用户名" prop="username">
+          <el-input
+            v-model="userForm.username"
+            placeholder="请输入用户名"
+            class="input-380"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="昵称"
-                      prop="nickname">
-          <el-input v-model="userForm.nickname"
-                    placeholder="请输入昵称"
-                    class="input-380"></el-input>
+        <el-form-item label="昵称" prop="nickname">
+          <el-input
+            v-model="userForm.nickname"
+            placeholder="请输入昵称"
+            class="input-380"
+          ></el-input>
         </el-form-item>
         <template v-if="!id">
-          <el-form-item label="设置密码"
-                        prop="isDefault"
-                        style="margin-bottom: 10px;">
+          <el-form-item
+            label="设置密码"
+            prop="isDefault"
+            style="margin-bottom: 10px;"
+          >
             <el-radio-group v-model="userForm.isDefault">
               <el-radio :label="true">默认</el-radio>
               <el-radio :label="false">自定义密码</el-radio>
@@ -33,54 +41,59 @@
           </el-form-item>
           <template v-if="!userForm.isDefault">
             <el-form-item prop="password">
-              <el-input v-model.trim="userForm.password"
-                        :show-password="true"
-                        placeholder="请输入密码"
-                        class="input-380"
-                        @input="clearChinese($event, 'password')" />
+              <el-input
+                v-model.trim="userForm.password"
+                :show-password="true"
+                placeholder="请输入密码"
+                class="input-380"
+                @input="clearChinese($event, 'password')"
+              />
             </el-form-item>
             <el-form-item prop="confirmPWD">
-              <el-input v-model.trim="userForm.confirmPWD"
-                        :show-password="true"
-                        placeholder="请再次输入密码"
-                        class="input-380" />
+              <el-input
+                v-model.trim="userForm.confirmPWD"
+                :show-password="true"
+                placeholder="请再次输入密码"
+                class="input-380"
+              />
             </el-form-item>
           </template>
         </template>
-        <el-form-item class="has-avatar"
-                      label="关联角色"
-                      prop="roleNames">
-          <div v-if="userForm.roleNames.length"
-               class="role-list">
-            <el-tag :key="index"
-                    v-for="(item, index) in userForm.roleNames"
-                    closable
-                    :disable-transitions="false"
-                    @close="delRole(userForm.roleNames, index)">
+        <el-form-item class="has-avatar" label="关联角色" prop="roleNames">
+          <div v-if="userForm.roleNames.length" class="role-list">
+            <el-tag
+              :key="index"
+              v-for="(item, index) in userForm.roleNames"
+              closable
+              :disable-transitions="false"
+              @close="delRole(userForm.roleNames, index)"
+            >
               <span class="tag-name">{{ item.name }}</span>
             </el-tag>
           </div>
-          <el-button icon="el-icon-plus"
-                     @click="rolePanelVisible = true">选择角色</el-button>
+          <el-button icon="el-icon-plus" @click="rolePanelVisible = true"
+            >选择角色</el-button
+          >
         </el-form-item>
       </el-form>
-      <div slot="footer"
-           class="dialog-footer">
+      <div slot="footer" class="dialog-footer">
         <el-button @click="onResetForm">取 消</el-button>
-        <el-button type="primary"
-                   @click="onSubmit"
-                   :loading="isLoading">确 定</el-button>
+        <el-button type="primary" @click="onSubmit" :loading="isLoading"
+          >确 定</el-button
+        >
       </div>
     </el-dialog>
 
-    <selection-panel title="选择关联角色"
-                     :show="rolePanelVisible"
-                     :selectedItem="userForm.roleNames"
-                     :single-choice="true"
-                     v-bind="rolePanelParams"
-                     dialogWidth="600px"
-                     @confirm="confirmSelection"
-                     @dataChange="changeRoleParams"></selection-panel>
+    <selection-panel
+      title="选择关联角色"
+      :show="rolePanelVisible"
+      :selectedItem="userForm.roleNames"
+      :single-choice="true"
+      v-bind="rolePanelParams"
+      dialogWidth="600px"
+      @confirm="confirmSelection"
+      @dataChange="changeRoleParams"
+    ></selection-panel>
   </div>
 </template>
 

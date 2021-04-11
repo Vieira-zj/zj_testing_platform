@@ -125,6 +125,7 @@ export default {
               if (data.token) {
                 localStorage.setItem('token', data.token)
                 localStorage.setItem('userInfo', JSON.stringify(data.user))
+                // 根据权限显示顶部导航栏中的标签
                 localStorage.setItem(
                   'authMenus',
                   JSON.stringify(data.auth || [])

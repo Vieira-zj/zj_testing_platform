@@ -6,6 +6,9 @@
     <el-container class="test-container">
       <!-- test cases tree -->
       <el-aside class="test-aside" width="25%">
+        <div style="border-bottom: 1px solid #ccc;">
+          <slot name="toolsBar"></slot>
+        </div>
         <slot name="testcasesTree"></slot>
       </el-aside>
       <!-- test case form -->

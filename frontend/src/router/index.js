@@ -32,6 +32,7 @@ const routes = [
         },
         component: console,
         redirect: 'console/userManagement',
+        // children inherit from home and console view
         children: [
           {
             path: 'userManagement',
@@ -50,6 +51,7 @@ const routes = [
         },
         component: test,
         redirect: 'test/testCasesTree',
+        // children inherit from home and test view
         children: [
           {
             path: 'testCasesTree',
@@ -63,14 +65,14 @@ const routes = [
             meta: {
               title: 'TCsHeTree',
             },
-            component: () => import('@/views/test/testCasesHeTree'),
+            component: () => import('@/views/test/tcsHeTree'),
           },
           {
             path: 'testCasesDraggableTree',
             meta: {
               title: 'TCsDraggableTree',
             },
-            component: () => import('@/views/test/testCasesDraggableTree'),
+            component: () => import('@/views/test/tcsDraggableTree'),
           },
         ],
       },

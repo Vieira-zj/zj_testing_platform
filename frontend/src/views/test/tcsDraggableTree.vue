@@ -1,29 +1,48 @@
 <template>
   <div>
     <test-cases-template>
+      <div slot="toolsBar">
+        <el-tooltip content="Expand All" placement="top">
+          <i
+            class="el-icon-s-unfold"
+            @click="expandAll"
+            style="margin: 5px"
+          ></i>
+        </el-tooltip>
+        <el-tooltip content="Collapse All" placement="top">
+          <i
+            class="el-icon-s-fold"
+            @click="collapseAll"
+            style="margin: 5px"
+          ></i>
+        </el-tooltip>
+      </div>
+
       <div slot="testcasesTree">
         <!-- draggable-tree refer: https://github.com/phphe/vue-draggable-nested-tree -->
         <!-- Note: tree scss cannot be "scoped". -->
         <draggable-tree
           :data="treedata"
           :draggable="true"
-          cross-tree="cross-tree"
+          @nodeOpenChanged="onNodeOpenChanged"
         >
           <!-- data is node, store is tree -->
           <div slot-scope="{ data, store }">
             <template v-if="!data.isDragPlaceHolder">
-              <span
-                v-if="data.children && data.children.length"
-                @click="store.toggleOpen(data)"
+              <div
+                @click="onClickNode(data, store)"
+                :class="{ 'custom-tree-node-active': data.active }"
               >
-                <i class="el-icon-folder-opened" v-if="data.open"></i>
-                <i class="el-icon-folder" v-else></i>
-                &nbsp;<b>{{ data.text }}</b>
-              </span>
-              <span v-else>
-                <i class="el-icon-document"></i>
-                &nbsp;{{ data.text }}
-              </span>
+                <span v-if="isTree(data)">
+                  <i class="el-icon-folder-opened" v-if="data.open"></i>
+                  <i class="el-icon-folder" v-else></i>
+                  &nbsp;<b>{{ data.text }}</b>
+                </span>
+                <span v-else>
+                  <i class="el-icon-document"></i>
+                  &nbsp;{{ data.text }}
+                </span>
+              </div>
             </template>
           </div>
         </draggable-tree>
@@ -40,6 +59,7 @@
 import testCasesTemplate from './testCasesTemplate.vue'
 import TestCaseForm from '@/components/TestCaseForm'
 import { DraggableTree } from 'vue-draggable-nested-tree'
+import { breadthFirstSearch } from 'tree-helper'
 
 let treedata = [
   { text: 'node 1' },
@@ -87,16 +107,47 @@ export default {
     return {
       treedata: treedata,
       tcName: '',
+      lastActiveNode: null,
     }
+  },
+  methods: {
+    onNodeOpenChanged(node) {
+      console.log(`node [${node.text}] open=${node.open}`)
+    },
+    onClickNode(data, store) {
+      this.tcName = data.text
+      this.activeNode(data)
+      if (this.isTree(data)) {
+        store.toggleOpen(data)
+      }
+    },
+    activeNode(node) {
+      if (this.lastActiveNode) {
+        this.lastActiveNode.active = false
+      }
+      node.active = true
+      this.lastActiveNode = node
+    },
+    isTree(node) {
+      return node.children && node.children.length > 0
+    },
+    expandAll() {
+      breadthFirstSearch(this.treedata, (node) => {
+        node.open = true
+      })
+    },
+    collapseAll() {
+      breadthFirstSearch(this.treedata, (node) => {
+        node.open = false
+      })
+    },
   },
 }
 </script>
 
 <style lang="scss">
 .he-tree {
-  border: 1px solid #ccc;
-  padding: 20px;
-  width: 300px;
+  padding: 8px 0 0 5px;
 }
 .tree {
   // .tree-node {}
@@ -118,6 +169,9 @@ export default {
     padding: 0;
     display: flex;
     align-items: center;
+  }
+  .custom-tree-node-active {
+    background-color: #81bdf5;
   }
 }
 </style>

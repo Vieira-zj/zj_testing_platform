@@ -1,21 +1,22 @@
 <template>
   <div>
     <test-cases-template>
+      <div slot="toolsBar">
+        <el-tooltip
+          content="You can double click on an item to turn it into a folder."
+          placement="top"
+        >
+          <i class="el-icon-help op-icon"></i>
+        </el-tooltip>
+        <el-tooltip content="Expand All" placement="top">
+          <i class="el-icon-s-unfold op-icon" @click="unfoldAll"></i>
+        </el-tooltip>
+        <el-tooltip content="Collapse All" placement="top">
+          <i class="el-icon-s-fold op-icon" @click="foldAll"></i>
+        </el-tooltip>
+      </div>
+
       <div slot="testcasesTree">
-        <div>
-          <el-tooltip
-            content="You can double click on an item to turn it into a folder."
-            placement="top"
-          >
-            <i class="el-icon-help op-icon"></i>
-          </el-tooltip>
-          <el-tooltip content="Expand All" placement="top">
-            <i class="el-icon-s-unfold op-icon" @click="unfoldAll"></i>
-          </el-tooltip>
-          <el-tooltip content="Collapse All" placement="top">
-            <i class="el-icon-s-fold op-icon" @click="foldAll"></i>
-          </el-tooltip>
-        </div>
         <tree-item
           class="item"
           :item="treeData"
@@ -23,7 +24,7 @@
           @make-folder="makeFolder"
           @add-item="addItem"
           @remove-item="removeItem"
-          style="margin-left: 5px"
+          style="padding-left: 5px"
         ></tree-item>
       </div>
 
@@ -123,7 +124,7 @@ export default {
     },
     removeItem(item) {
       // 问题：删除一个元素后，会导致列表后面的元素重新加载（mount），item状态被重置。
-      // 解决：将item状态保存在全局变量中。
+      // 解决：将item状态保存在全局变量 treedata 中。
       this.removeItemFromTree(this.treeData, item)
       if (this.tcName === item.name) {
         this.tcName = ''

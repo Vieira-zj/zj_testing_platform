@@ -31,8 +31,8 @@ export default {
   },
   data() {
     return {
-      isTestCasesHeTree: true,
-      isTestCasesDraggableTree: false,
+      isTestCasesHeTree: false,
+      isTestCasesDraggableTree: true,
     }
   },
 }

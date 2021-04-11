@@ -50,6 +50,7 @@
         </el-dropdown>
       </div>
 
+      <!-- 修改密码 -->
       <el-dialog
         title="修改密码"
         width="700px"
@@ -103,6 +104,7 @@
         </span>
       </el-dialog>
 
+      <!-- 个人信息 -->
       <el-dialog
         title="个人信息"
         width="500px"
@@ -196,6 +198,7 @@ export default {
       return this.$route.path.split('/')[1] === id
     },
     initAuth() {
+      // 根据权限显示顶部导航栏中的标签
       const authArr = JSON.parse(localStorage.getItem('authMenus') || '[]')
       if (!authArr.length) {
         this.$notifyMessage('无菜单权限')
