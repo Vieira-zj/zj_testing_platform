@@ -75,6 +75,7 @@ class UserViewSet(GenericViewSet):
         return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
+        # 写user表
         password = request.data.get("password")
         user = {
             "username": request.data.get("username"),
@@ -90,6 +91,7 @@ class UserViewSet(GenericViewSet):
         user_create_serializer.is_valid(raise_exception=True)
         user_create_serializer.save()
 
+        # 写user_role表
         user_id = User.objects.get(username=user["username"]).id
         user_role = {
             "user_id": user_id,
@@ -146,6 +148,7 @@ class UserViewSet(GenericViewSet):
         return Response(user_serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, *args, **kwargs):
+        # 同时删除user表和user_role表
         try:
             user_id = kwargs["pk"]
             user = User.objects.get(id=user_id)
@@ -189,10 +192,12 @@ class SystemResetPassword(APIView):
 
 @api_view(['PUT'])
 def update_password(request, *args, **kwargs):
+    # 会对jwt进行解码, 获取到user_id
     request_jwt = request.headers.get("Authorization").replace("Bearer ", "")
     request_jwt_decoded = jwt.decode(
         request_jwt, verify=False, algorithms=['HS512'])
     user_id = request_jwt_decoded["user_id"]
+
     user = User.objects.get(id=user_id)
     db_password_hash = user.password
     old_password = request.data.get("oldPassword")

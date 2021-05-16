@@ -16,34 +16,32 @@ django-admin startproject tbackend
 pip install --default-timeout=6000 -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 ```
 
-3. Create "user" app
+------
+
+## Build user app
+
+1. Create "user" app
 
 ```sh
 django-admin startapp user
 ```
 
-4. Sync model to db, and create table
+2. Sync model to db, and create tables
 
 ```sh
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-5. Load test user data
+3. Load user data in db
 
 ```sh
 python manage.py loaddata user
 ```
 
-> Django 会在 user.fixtures 目录下自动找名字为user的 .json、.xml或.yaml 文件进行加载。
+> Django 会在 user.fixtures 目录下自动找名字为user的 .json、.xml 或 .yaml 文件进行加载。
 
-6. Start django server
-
-```sh
-python manage.py runserver
-```
-
-## Project Structure
+### Project Structure
 
 - `backend/settings`: 全局项目配置
 - `user/fixtures`: 数据准备
@@ -52,7 +50,40 @@ python manage.py runserver
 - `user/urls.py`: 路由
 - `user/view.py`: 后端逻辑处理
 
-## SQLite3 Cli
+序列化器提供数据库表字段和响应json的序列化和反序列化；视图使用序列化器，编写业务处理代码。
+
+### 启动Django项目
+
+Start django server:
+
+```sh
+python manage.py runserver
+```
+
+------
+
+## Build teprunner app
+
+1. 创建名为teprunner的app:
+
+```sh
+django-admin startapp teprunner
+```
+
+2. 数据同步到数据库：
+
+```sh
+python manage.py loaddata user
+```
+
+3. 完成models后，迁移到数据库：
+
+```sh
+python manage.py makemigrations
+python manage.py migrate
+```
+
+## 补充：SQLite3 Cli
 
 ```text
 sqlite3 db.sqlite3

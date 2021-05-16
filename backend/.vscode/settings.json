@@ -1,4 +1,4 @@
 {
-  "python.pythonPath": "/Users/jinzheng/.pyenv/versions/django-3.8.0/bin/python",
+  "python.pythonPath": "/Users/jinzheng/.pyenv/versions/env-3.7.2/bin/python",
   "python.linting.pylintArgs": ["--generate-members"]
 }
