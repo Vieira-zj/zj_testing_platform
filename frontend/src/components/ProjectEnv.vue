@@ -13,6 +13,7 @@
                      :value="item"></el-option>
         </el-select>
       </el-form-item>
+
       <el-form-item label="环境"
                     v-if="showEnv">
         <el-select v-model="curEnvName"
@@ -32,11 +33,11 @@
 export default {
   name: 'ProjectEnv',
   props: {
-    showEnv: {
+    showProject: {
       type: Boolean,
       default: true,
     },
-    showProject: {
+    showEnv: {
       type: Boolean,
       default: true,
     },
@@ -52,12 +53,12 @@ export default {
     }
   },
   created() {
-    // 环境和项目数据从localStorage中读取
     this.getProjectEnv()
     this.getCurProjectEnv()
   },
   methods: {
     getProjectEnv() {
+      // 环境和项目数据从localStorage中读取
       let localProjectEnvList = JSON.parse(
         localStorage.getItem('projectEnvList')
       )
@@ -87,13 +88,14 @@ export default {
         }
       })
     },
-    changeProject() {
-      let curProjectEnv = {}
+    changeProject(val) {
+      this.curProjectName = val
       this.projectEnvList.forEach((item) => {
         if (item.projectName === this.curProjectName) {
           this.curProjectId = item.projectId
         }
       })
+      let curProjectEnv = {}
       curProjectEnv['curProjectId'] = this.curProjectId
       curProjectEnv['curProjectName'] = this.curProjectName
       this.getEnvList()
@@ -102,7 +104,8 @@ export default {
       localStorage.setItem('curProjectEnv', JSON.stringify(curProjectEnv))
       this.$emit('changeProject')
     },
-    changeEnv() {
+    changeEnv(val) {
+      this.curEnvName = val
       let curProjectEnv = {}
       curProjectEnv['curProjectId'] = this.curProjectId
       curProjectEnv['curProjectName'] = this.curProjectName

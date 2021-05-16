@@ -23,6 +23,7 @@
                     class="input-380"></el-input>
         </el-form-item>
       </el-form>
+
       <div slot="footer"
            class="dialog-footer">
         <el-button @click="onResetForm">取 消</el-button>
@@ -67,9 +68,8 @@ export default {
       isLoading: false,
       projectForm: {
         name: '',
-        desc: '',
-        leader: '',
         envConfig: '',
+        desc: '',
       },
       rules: {
         name: [

@@ -117,21 +117,21 @@ const routes = [
             meta: {
               title: 'TestCasesTree',
             },
-            component: () => import('@/views/test/testCasesTree'),
+            component: () => import('@/views/test/TestCasesTree'),
           },
           {
             path: 'testCasesHeTree',
             meta: {
-              title: 'TCsHeTree',
+              title: 'TestCasesHeTree',
             },
-            component: () => import('@/views/test/tcsHeTree'),
+            component: () => import('@/views/test/TCsHeTree'),
           },
           {
             path: 'testCasesDraggableTree',
             meta: {
-              title: 'TCsDraggableTree',
+              title: 'TestCasesDraggableTree',
             },
-            component: () => import('@/views/test/tcsDraggableTree'),
+            component: () => import('@/views/test/TCsDraggableTree'),
           },
         ],
       },
