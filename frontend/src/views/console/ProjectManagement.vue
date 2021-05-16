@@ -1,35 +1,13 @@
 <template>
   <div>
-    <wrap-component tableTitle="全部用户">
+    <WrapComponent tableTitle="全部项目">
       <el-button type="primary"
                  class="pri-add-btn"
                  icon="el-icon-circle-plus"
                  @click="onOperate('new')"
                  slot="operate">
-        新增用户
+        新增项目
       </el-button>
-
-      <!-- 查询 -->
-      <el-form slot="form"
-               :model="searchForm"
-               ref="searchForm"
-               :inline="true"
-               class="search-form">
-        <el-form-item label="用户名 / 昵称"
-                      prop="keyword">
-          <el-input v-model="searchForm.keyword"
-                    placeholder="用户名 / 昵称"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="getUserList"
-                     type="primary"
-                     icon="el-icon-search">搜索</el-button>
-          <el-button @click="resetForm"
-                     icon="el-icon-refresh-left">重置</el-button>
-        </el-form-item>
-      </el-form>
-
-      <!-- 用户列表 -->
       <el-table slot="table"
                 :data="tableData"
                 v-loading="loading"
@@ -38,22 +16,15 @@
           color: 'rgba(0, 0, 0, 0.65)',
           fontSize: '14px',
         }">
-        <el-table-column prop="username"
-                         label="用户名"
+        <el-table-column prop="projectName"
+                         label="项目名称"
                          show-overflow-tooltip></el-table-column>
-        <el-table-column prop="nickname"
-                         label="昵称"
-                         show-overflow-tooltip></el-table-column>
-        <el-table-column prop="roleName"
-                         label="角色"></el-table-column>
+        <el-table-column prop="envConfig"
+                         label="环境配置"></el-table-column>
         <el-table-column label="操作"
                          width="320px">
           <template slot-scope="scope">
             <div>
-              <el-button type="info"
-                         size="mini"
-                         plain
-                         @click="resetPWD(scope.row.id)">重置密码</el-button>
               <el-button type="info"
                          size="mini"
                          plain
@@ -66,8 +37,6 @@
           </template>
         </el-table-column>
       </el-table>
-
-      <!-- 分页 -->
       <div class="content-footer clear"
            slot="footer">
         <div class="block page-list self-right">
@@ -76,37 +45,32 @@
                           @currentPageChange="changeCurrentPage" />
         </div>
       </div>
-    </wrap-component>
+    </WrapComponent>
 
-    <add-user-dialog :dialogFormVisible.sync="dialogFormVisible"
-                     :dialogTitle="dialogTitle"
-                     :id="curId"
-                     @success="resetForm" />
+    <AddProjectDialog :dialogFormVisible.sync="dialogFormVisible"
+                      :dialogTitle="dialogTitle"
+                      :id="curId"
+                      @success="resetForm" />
   </div>
 </template>
 
 <script>
 import WrapComponent from '@/components/WrapComponent'
 import { delConfirm, filterNullValue } from '@/utils/commonMethods'
-import AddUser from './AddUser'
+import AddProject from './AddProject'
 
 export default {
-  name: 'AccountMgt',
+  name: 'ProjectManagement',
   components: {
     WrapComponent,
-    AddUserDialog: AddUser,
+    AddProjectDialog: AddProject,
   },
   data() {
     return {
       loading: false,
       dialogFormVisible: false,
-      dialogTitle: '新增用户',
+      dialogTitle: '新增项目',
       curId: '',
-      searchForm: {
-        keyword: '',
-        roleNames: '',
-        status: '',
-      },
       tableData: [],
       pageParams: {
         currentPage: 1,
@@ -116,50 +80,21 @@ export default {
     }
   },
   created() {
-    this.getUserList()
+    this.getProjectList()
   },
   methods: {
     onOperate(type, id = '') {
       const titleMap = {
-        new: '新增用户',
-        edit: '编辑用户',
+        new: '新增项目',
+        edit: '编辑项目',
       }
       this.dialogTitle = titleMap[type]
       this.dialogFormVisible = true
       this.curId = id
     },
-    resetPWD(id) {
-      delConfirm(
-        `确认重置此用户的密码？`,
-        () => {
-          this.$http.put(`/users/${id}/passwords/reset`).then(({ data }) => {
-            if (data) {
-              delConfirm(
-                `登录密码已重置为默认密码“${data}”，请联系相关人员尽快修改。`,
-                null,
-                {
-                  confirmButtonText: '我已知晓',
-                  showCancelButton: false,
-                  confirmButtonClass: 'el-button--primary',
-                  type: 'success',
-                }
-              )
-            }
-            this.getUserList()
-          })
-        },
-        {
-          confirmButtonText: '重置',
-        }
-      )
-    },
     onDel(btnText, row) {
-      if (btnText === '启用') {
-        this.operateRow(btnText, row)
-        return
-      }
       delConfirm(
-        `是否${btnText}此账号？`,
+        `是否${btnText}此项目？`,
         () => {
           this.operateRow(btnText, row)
         },
@@ -173,43 +108,38 @@ export default {
       let $method
       let params = {}
       if (btnText === '删除') {
-        $url = `/users/${id}`
+        $url = `/teprunner/projects/${id}`
         $method = 'delete'
       }
       this.$http[$method]($url, params).then(() => {
         this.$notifyMessage(`${btnText}成功`, { type: 'success' })
-        this.getUserList()
+        this.getProjectList()
+        localStorage.removeItem('projectEnvList')
       })
     },
-    getUserList() {
+    getProjectList() {
       this.loading = true
       let params = {
-        ...this.searchForm,
         page: this.pageParams.currentPage,
         perPage: this.pageParams.pageSize,
         sortField: 'id',
       }
       this.$http
-        .get('/users', { params: filterNullValue(params) })
+        .get('/teprunner/projects', { params: filterNullValue(params) })
         .then(({ data: { items, totalNum } }) => {
           this.pageParams.totalNum = totalNum
           if (items) {
             this.tableData = items.map((item) => {
-              let roleName = '-'
-              if (item.roleNames) {
-                roleName = item.roleNames.map((role) => role.name).join('、')
-              }
               return {
                 id: item.id,
-                username: item.username,
-                nickname: item.nickname,
-                roleName,
+                projectName: item.name,
+                envConfig: item.envConfig,
               }
             })
           } else {
             if (totalNum > 0 && this.pageParams.currentPage > 1) {
               this.pageParams.currentPage--
-              this.getUserList()
+              this.getProjectList()
             }
             this.tableData = []
           }
@@ -219,17 +149,16 @@ export default {
         })
     },
     resetForm() {
-      this.$refs.searchForm.resetFields()
-      this.getUserList()
+      this.getProjectList()
     },
     changeSize(val) {
       this.pageParams.pageSize = val
       this.pageParams.currentPage = 1
-      this.getUserList()
+      this.getProjectList()
     },
     changeCurrentPage(val) {
       this.pageParams.currentPage = val
-      this.getUserList()
+      this.getProjectList()
     },
   },
 }

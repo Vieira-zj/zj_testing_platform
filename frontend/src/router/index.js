@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import login from '@/views/login'
 import home from '@/views/home'
 import console from '@/views/console'
+import teprunner from '@/views/teprunner'
 import test from '@/views/test'
 
 Vue.use(VueRouter)
@@ -11,7 +12,7 @@ const routes = [
   {
     path: '/login',
     meta: {
-      title: "测试平台登录",
+      title: '测试平台登录',
     },
     component: login,
   },
@@ -22,8 +23,59 @@ const routes = [
       requireAuth: true,
     },
     component: home,
-    redirect: 'console/userManagement',
+    redirect: 'teprunner/grammar',
     children: [
+      {
+        path: 'teprunner',
+        name: 'teprunner',
+        meta: {
+          title: '接口自动化',
+        },
+        component: teprunner,
+        redirect: 'teprunner/grammar',
+        children: [
+          {
+            path: 'grammar',
+            meta: {
+              title: '语法说明',
+            },
+            component: () => import('@/views/teprunner/Grammar.vue'),
+          },
+          {
+            path: 'envVar',
+            meta: {
+              title: '环境变量',
+            },
+            component: () => import('@/views/teprunner/EnvVar.vue'),
+          },
+          {
+            path: 'fixture',
+            name: 'fixture',
+            meta: {
+              title: 'fixtures',
+            },
+            component: () => import('@/views/teprunner/Fixture.vue'),
+            children: [
+              {
+                path: 'add',
+                name: 'addFixture',
+                meta: {
+                  title: '新增 fixture',
+                },
+                component: () => import('@/views/teprunner/FixtureEditor'),
+              },
+              {
+                path: 'edit',
+                name: 'editFixture',
+                meta: {
+                  title: '编辑 fixture',
+                },
+                component: () => import('@/views/teprunner/FixtureEditor'),
+              },
+            ],
+          },
+        ]
+      },
       {
         path: 'console',
         name: 'console',
@@ -39,7 +91,14 @@ const routes = [
             meta: {
               title: '用户管理',
             },
-            component: () => import('@/views/console/userManagement.vue'),
+            component: () => import('@/views/console/UserManagement.vue'),
+          },
+          {
+            path: 'projectManagement',
+            meta: {
+              title: '项目管理',
+            },
+            component: () => import('@/views/console/ProjectManagement.vue'),
           },
         ]
       },
