@@ -24,7 +24,7 @@
         依赖注入函数，封装API等，供测试用例调用。比如登录接口：
         <br />
       </p>
-      <pre v-highlightA><code >from tep.client import request
+      <pre v-highlightA><code>from tep.client import request
 from tep.fixture import *
 
 
@@ -67,7 +67,7 @@ def login(url):
       <p>
         <b>单个接口</b>
       </p>
-      <pre v-highlightA><code >import jmespath
+      <pre v-highlightA><code>import jmespath
 from loguru import logger
 
 from tep.client import request
@@ -91,12 +91,12 @@ def test_post(faker_ch, url, login):
     assert response.status_code &#60; 400
     # 提取
     user_id = jmespath.search("id", response.json())
-</code></pre>
+      </code></pre>
       <br />
       <p>
         <b>多个接口--增删改查</b>
       </p>
-      <pre v-highlightA><code >import jmespath
+      <pre v-highlightA><code>import jmespath
 from loguru import logger
 from tep.client import request
 
@@ -154,7 +154,7 @@ def test(faker_ch, login, url):
         headers=login.jwt_headers
     )
     assert response.status_code &#60; 400
-</code></pre>
+      </code></pre>
       <br />
       <h3>
         <span style="background-color:#FFE500;">请求方法</span>
@@ -163,7 +163,7 @@ def test(faker_ch, login, url):
       <p>
         <b>get</b>
       </p>
-      <pre v-highlightA><code ># 不带参数
+      <pre v-highlightA><code># 不带参数
 request("get", url=url("/api/xxx"), headers=headers)
 
 # json参数
@@ -177,29 +177,29 @@ from urllib.parse import urlencode
 
 query = {}
 request("get", url=url("/api/xxx") + "?" + urlencode(query), headers=headers)
-</code></pre>
+      </code></pre>
       <br />
       <p>
         <b>post</b>
       </p>
-      <pre v-highlightA><code ># json参数
+      <pre v-highlightA><code># json参数
 request("post", url=url("/api/xxx"), headers=headers, json={})
 
 # dict参数
 request("post", url=url("/api/xxx"), headers=headers, data={})
-</code></pre>
+      </code></pre>
       <br />
       <p>
         <b>put</b>
       </p>
-      <pre v-highlightA><code >request("put", url=url("/api/xxx"), headers=headers, json={})
-</code></pre>
+      <pre v-highlightA><code>request("put", url=url("/api/xxx"), headers=headers, json={})
+      </code></pre>
       <br />
       <p>
         <b>delete</b>
       </p>
-      <pre v-highlightA><code >request("delete", url=url(f"/api/xxx"), headers=headers)
-</code></pre>
+      <pre v-highlightA><code>request("delete", url=url(f"/api/xxx"), headers=headers)
+      </code></pre>
       <br />
       <br />
       <br />

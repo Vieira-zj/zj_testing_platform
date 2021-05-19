@@ -29,8 +29,13 @@ django-admin startapp user
 2. Sync model to db, and create tables
 
 ```sh
+# for project
 python manage.py makemigrations
 python manage.py migrate
+
+# for user app
+python manage.py makemigrations user
+python manage.py migrate user
 ```
 
 3. Load user data in db
@@ -79,8 +84,8 @@ python manage.py loaddata user
 3. 完成models后，迁移到数据库：
 
 ```sh
-python manage.py makemigrations
-python manage.py migrate
+python manage.py makemigrations teprunner
+python manage.py migrate teprunner
 ```
 
 ## 补充：SQLite3 Cli

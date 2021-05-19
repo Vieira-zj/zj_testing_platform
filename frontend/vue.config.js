@@ -13,6 +13,7 @@ module.exports = {
       return args
     })
   },
+  // dev server for cors
   devServer: {
     proxy: {
       '/api': {
