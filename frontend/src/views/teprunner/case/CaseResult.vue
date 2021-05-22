@@ -143,6 +143,7 @@ export default {
         this.socket = new WebSocket(socketUrl)
         this.socket.onopen = function () {
           // console.log("WebSocket Open");
+          // 向后端发送消息
           _this.socket.send(
             JSON.stringify({
               token: localStorage.getItem('token'),
