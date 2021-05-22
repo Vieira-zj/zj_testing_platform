@@ -1,38 +1,36 @@
 <template>
   <div style="clear: both;"
        class="content-info">
-    <el-form :model="fixtureForm"
-             ref="fixtureFormRef"
+    <el-form :model="caseForm"
+             ref="caseFormRef"
              :rules="rules"
              label-width="100px"
              class="form-common"
              :inline="true">
-      <el-form-item label="名称"
-                    prop="name">
-        <el-input v-model="fixtureForm.name"
-                  placeholder="请输入 fixture 名称"
-                  :rows="1"
-                  style="width: 300px;"></el-input>
-      </el-form-item>
-      <el-form-item label="说明"
+      <el-form-item label="用例描述"
                     prop="desc">
-        <el-input v-model="fixtureForm.desc"
-                  placeholder="请输入 fixture 说明"
+        <el-input type="textarea"
+                  v-model="caseForm.desc"
+                  placeholder="请输入用例描述"
                   :rows="1"
-                  style="width: 350px"></el-input>
+                  style="width:680px;"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button style="margin-left: 30px"
-                   type="primary"
+        <el-button type="primary"
                    @click="onSubmit"
-                   :loading="isLoading">保 存</el-button>
+                   :loading="isLoading"
+                   style="margin-left: 20px">保 存</el-button>
       </el-form-item>
       <el-form-item>
         <el-button @click="onResetForm">取 消</el-button>
       </el-form-item>
+      <el-form-item>
+        <el-button type="success"
+                   @click="onRunCase">运 行</el-button>
+      </el-form-item>
     </el-form>
 
-    <editor v-model="fixtureForm.code"
+    <editor v-model="caseForm.code"
             @init="editorInit"
             lang="python"
             theme="monokai"
@@ -55,23 +53,23 @@ export default {
     return {
       codeHeight: window.innerHeight - 225,
       isLoading: false,
-      fixtureForm: {
-        name: '',
+      caseForm: {
         desc: '',
         code: '',
       },
       rules: {
-        name: [{ required: true, message: '名称不能为空', trigger: 'blur' }],
-        desc: [{ required: true, message: '说明不能为空', trigger: 'blur' }],
+        desc: [
+          { required: true, message: '用例描述不能为空', trigger: 'blur' },
+        ],
       },
-      id: null,
+      caseInfo: null,
     }
   },
   created() {
-    let fixtureInfo = localStorage.getItem('fixtureInfo')
-    if (fixtureInfo) {
-      fixtureInfo = JSON.parse(fixtureInfo)
-      this.id = fixtureInfo.id
+    let caseInfo = localStorage.getItem('caseInfo')
+    if (caseInfo) {
+      this.caseInfo = JSON.parse(caseInfo)
+      this.id = this.caseInfo.id
     }
     if (this.id) {
       this.getDetail()
@@ -85,58 +83,67 @@ export default {
       require('brace/snippets/python')
     },
     onResetForm() {
-      this.$refs.fixtureFormRef.resetFields()
+      this.$refs.caseFormRef.resetFields()
       this.isLoading = false
-      this.fixtureForm.name = ''
-      this.fixtureForm.desc = ''
-      this.fixtureForm.code = ''
-      this.back()
+      this.caseForm.desc = ''
+      this.caseForm.code = ''
+      this.$router.push('/teprunner/case')
     },
     getDetail() {
-      this.$http.get(`/teprunner/fixtures/${this.id}`).then(({ data }) => {
-        this.fixtureForm.name = data.name
-        this.fixtureForm.desc = data.desc
-        this.fixtureForm.code = data.code
+      this.$http.get(`/teprunner/cases/${this.id}`).then(({ data }) => {
+        this.caseForm.desc = data.desc
+        this.caseForm.code = data.code + '\n'
       })
     },
     onSubmit() {
-      this.$refs.fixtureFormRef.validate((valid) => {
+      this.$refs.caseFormRef.validate((valid) => {
         if (valid) {
           this.isLoading = true
           this.onRequest()
         }
       })
     },
-    onRequest() {
-      const { name, desc, code } = this.fixtureForm
-      let userInfo = JSON.parse(localStorage.getItem('userInfo'))
-      let creatorNickname = userInfo.nickname
+    onRequest(type = '') {
+      const { desc, code } = this.caseForm
       let curProjectEnv = JSON.parse(localStorage.getItem('curProjectEnv'))
-      let curProjectId = curProjectEnv.curProjectId
+      let projectId = curProjectEnv.curProjectId
+      let creatorNickname = JSON.parse(localStorage.getItem('userInfo'))
+        .nickname
       let params = {
-        curProjectId,
-        name,
         desc,
         code,
         creatorNickname,
+        projectId,
       }
       let $method = 'post'
-      let $url = '/teprunner/fixtures'
+      let $url = '/teprunner/cases'
       if (this.id) {
         $method = 'put'
-        $url = `/teprunner/fixtures/${this.id}`
+        $url = `/teprunner/cases/${this.id}`
       }
       this.$http[$method]($url, params)
         .then(() => {
           this.$notifyMessage('保存成功', { type: 'success' })
           this.onResetForm()
+          this.$emit('success')
         })
         .finally(() => {
           this.isLoading = false
+          if (type === 'run') {
+            this.caseInfo.caseResultType = 'run'
+            localStorage.setItem('caseInfo', JSON.stringify(this.caseInfo))
+            this.$router.push({
+              name: 'case.caseResult',
+            })
+          }
         })
     },
-    back() {
-      this.$router.go(-1)
+    onRunCase() {
+      this.$refs.caseFormRef.validate((valid) => {
+        if (valid) {
+          this.onRequest('run')
+        }
+      })
     },
   },
 }
