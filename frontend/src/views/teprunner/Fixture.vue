@@ -1,7 +1,7 @@
 <template>
   <div>
     <wrap-component v-if="$route.name === 'fixture'"
-                    tableTitle="fixtures">
+                    tableTitle="Fixtures">
       <project-env slot="projectEnv"
                    @changeProject="changeProject"
                    :showEnv="false"></project-env>
@@ -12,6 +12,7 @@
                  slot="operate">
         新增 fixture
       </el-button>
+
       <el-table slot="table"
                 :data="tableData"
                 v-loading="loading"
@@ -45,6 +46,7 @@
           </template>
         </el-table-column>
       </el-table>
+
       <div class="content-footer clear"
            slot="footer">
         <div class="block page-list self-right">
@@ -59,8 +61,8 @@
 </template>
 
 <script>
-import WrapComponent from '@/components/WrapComponent'
 import { delConfirm, filterNullValue } from '@/utils/commonMethods'
+import WrapComponent from '@/components/WrapComponent'
 import ProjectEnv from '@/components/ProjectEnv'
 
 export default {

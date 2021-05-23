@@ -32,6 +32,7 @@
       </el-form-item>
     </el-form>
 
+    <!-- 代码编辑器 -->
     <editor v-model="fixtureForm.code"
             @init="editorInit"
             lang="python"

@@ -45,6 +45,7 @@
           </template>
         </el-table-column>
       </el-table>
+
       <div class="content-footer clear"
            slot="footer">
         <div class="block page-list self-right">
@@ -63,10 +64,10 @@
 </template>
 
 <script>
-import WrapComponent from '@/components/WrapComponent'
 import { delConfirm, filterNullValue } from '@/utils/commonMethods'
-import AddEnvVar from '@/views/teprunner/AddEnvVar'
+import WrapComponent from '@/components/WrapComponent'
 import ProjectEnv from '@/components/ProjectEnv'
+import AddEnvVar from '@/views/teprunner/AddEnvVar'
 
 export default {
   name: 'EnvVar',
@@ -129,7 +130,7 @@ export default {
       }
       this.$http[$method]($url, params).then(() => {
         this.$notifyMessage(`${btnText}成功`, { type: 'success' })
-        this.getEnvVarList()
+        this.getEnvVarList() // 操作后刷新数据
       })
     },
     getEnvVarList() {

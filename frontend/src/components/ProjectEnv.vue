@@ -1,9 +1,10 @@
 <template>
   <div>
+    <!-- 项目与环境关联下拉菜单 -->
     <el-form :inline="true">
       <el-form-item label="项目"
                     v-if="showProject">
-        <!-- @change在切换下拉选项时调用 @click.native指在点击打开时获取数据 -->
+        <!-- @change在切换下拉选项时调用；@click.native指在点击打开时获取数据 -->
         <el-select v-model="curProjectName"
                    @change="changeProject"
                    @click.native="getProjectList">
@@ -102,7 +103,7 @@ export default {
       this.curEnvName = this.envList[0]
       curProjectEnv['curEnvName'] = this.curEnvName
       localStorage.setItem('curProjectEnv', JSON.stringify(curProjectEnv))
-      this.$emit('changeProject')
+      this.$emit('changeProject') // 向上冒泡事件
     },
     changeEnv(val) {
       this.curEnvName = val

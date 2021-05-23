@@ -11,7 +11,7 @@
       </el-menu-item>
       <el-menu-item index="/teprunner/fixture">
         <i class="el-icon-magic-stick"></i>
-        <span slot="title">fixtures</span>
+        <span slot="title">Fixtures</span>
       </el-menu-item>
       <el-menu-item index="/teprunner/case">
         <i class="el-icon-edit-outline"></i>
@@ -40,13 +40,12 @@ export default {
       let localProjectEnvList = JSON.parse(
         localStorage.getItem('projectEnvList')
       )
-      // 加项目及环境数据
+      // 加载项目及环境数据
       if (!localProjectEnvList) {
         this.$http
           .get('/teprunner/projects/env')
           .then(({ data: { projectEnvList, curProjectEnv } }) => {
             if (projectEnvList) {
-              this.projectEnvList = projectEnvList
               localStorage.setItem(
                 'projectEnvList',
                 JSON.stringify(projectEnvList)
@@ -55,9 +54,6 @@ export default {
                 localStorage.getItem('curProjectEnv')
               )
               if (!localCurProjectEnv) {
-                this.curProjectId = curProjectEnv.curProjectId
-                this.curProjectName = curProjectEnv.curProjectName
-                this.curEnvName = curProjectEnv.curEnvName
                 localStorage.setItem(
                   'curProjectEnv',
                   JSON.stringify(curProjectEnv)

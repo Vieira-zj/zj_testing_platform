@@ -2,9 +2,13 @@ from rest_framework import serializers
 
 from teprunner.models import Project, EnvVar, Fixture, Case, CaseResult, Plan, PlanCase, PlanResult
 
+"""
+数据库字段的命名是用的下划线，接口返回前端和前端传参是用的驼峰。
+"""
+
 
 class ProjectSerializer(serializers.ModelSerializer):
-    id = serializers.CharField(required=False)
+    id = serializers.CharField(required=False)  # 把int转化为str
     envConfig = serializers.CharField(source="env_config")  # 通过source重命名
 
     class Meta:

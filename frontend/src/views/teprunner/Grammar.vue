@@ -24,6 +24,7 @@
         依赖注入函数，封装API等，供测试用例调用。比如登录接口：
         <br />
       </p>
+      <!-- style by assets/js/highlight.js -->
       <pre v-highlightA><code>from tep.client import request
 from tep.fixture import *
 
@@ -200,8 +201,6 @@ request("post", url=url("/api/xxx"), headers=headers, data={})
       </p>
       <pre v-highlightA><code>request("delete", url=url(f"/api/xxx"), headers=headers)
       </code></pre>
-      <br />
-      <br />
       <br />
       <br />
       <br />

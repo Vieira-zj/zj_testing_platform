@@ -2,19 +2,21 @@
   <!-- 左侧导航栏 -->
   <nav-left>
     <div slot="menuItem">
-      <el-menu-item index="/test/testCasesTree">
+      <el-menu-item index="/vuetest/testCasesTree">
         <i class="el-icon-menu"></i>
         <span slot="title">TestCasesTree</span>
       </el-menu-item>
     </div>
-    <div slot="menuItem" v-if="isTestCasesHeTree">
-      <el-menu-item index="/test/testCasesHeTree">
+    <div slot="menuItem"
+         v-if="isTestCasesHeTree">
+      <el-menu-item index="/vuetest/testCasesHeTree">
         <i class="el-icon-s-grid"></i>
         <span slot="title">TCsHeTree</span>
       </el-menu-item>
     </div>
-    <div slot="menuItem" v-if="isTestCasesDraggableTree">
-      <el-menu-item index="/test/testCasesDraggableTree">
+    <div slot="menuItem"
+         v-if="isTestCasesDraggableTree">
+      <el-menu-item index="/vuetest/testCasesDraggableTree">
         <i class="el-icon-s-grid"></i>
         <span slot="title">TCsDraggableTree</span>
       </el-menu-item>

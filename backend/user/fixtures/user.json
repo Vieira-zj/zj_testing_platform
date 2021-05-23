@@ -27,8 +27,8 @@
           "access": true
         },
         {
-          "id": "test",
-          "name": "组件测试",
+          "id": "vuetest",
+          "name": "Vue组件测试",
           "access": true
         }
       ],
@@ -43,13 +43,18 @@
       "name": "测试",
       "auth": [
         {
+          "id": "teprunner",
+          "name": "接口自动化",
+          "access": true
+        },
+        {
           "id": "console",
           "name": "后台管理",
           "access": false
         },
         {
-          "id": "test",
-          "name": "组件测试",
+          "id": "vuetest",
+          "name": "Vue组件测试",
           "access": true
         }
       ],
@@ -64,13 +69,18 @@
       "name": "开发",
       "auth": [
         {
+          "id": "teprunner",
+          "name": "接口自动化",
+          "access": true
+        },
+        {
           "id": "console",
           "name": "后台管理",
           "access": false
         },
         {
-          "id": "test",
-          "name": "组件测试",
+          "id": "vuetest",
+          "name": "Vue组件测试",
           "access": true
         }
       ],

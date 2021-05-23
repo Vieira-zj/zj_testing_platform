@@ -13,9 +13,7 @@ class EnvVarViewSet(ModelViewSet):
     serializer_class = EnvVarSerializer
 
     def list(self, request, *args, **kwargs):
-        """
-        根据项目进行过滤。
-        """
+        # 从前端请求拿到curProjectId和curEnvName, 通过 EnvVar.objects.filter 进行过滤
         project_id = request.GET.get("curProjectId")
         env_name = request.GET.get("curEnvName")
         queryset = EnvVar.objects.filter(

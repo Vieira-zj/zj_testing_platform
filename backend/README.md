@@ -88,6 +88,8 @@ python manage.py makemigrations teprunner
 python manage.py migrate teprunner
 ```
 
+------
+
 ## 补充：SQLite3 Cli
 
 ```text

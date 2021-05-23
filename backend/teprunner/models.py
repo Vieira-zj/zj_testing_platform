@@ -17,6 +17,7 @@ class Project(BaseTable):
         db_table = "project"
 
     name = models.CharField("项目名称", unique=True, max_length=100, null=False)
+    # env_config 用于给项目配置多个环境
     env_config = models.CharField("环境配置", max_length=100, null=False)
 
 
@@ -38,7 +39,7 @@ class Fixture(BaseTable):
 
     name = models.CharField("fixture名称", max_length=100, null=False)
     desc = models.CharField("fixture描述", max_length=500, default="")
-    # TextField容纳更多字符
+    # 存放代码，TextField容纳更多字符
     code = models.TextField("代码", max_length=30000, null=False)
     creator_nickname = models.CharField("创建人昵称", null=False, max_length=64)
     project_id = models.IntegerField("项目id", null=False)

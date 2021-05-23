@@ -13,16 +13,13 @@ class FixtureViewSet(ModelViewSet):
     serializer_class = FixtureSerializer
 
     def list(self, request, *args, **kwargs):
-        """
-        根据项目进行过滤。
-        """
+        # 从前端请求拿到curProjectId, 通过 Fixture.objects.filter 进行过滤
         project_id = request.GET.get("curProjectId")
         queryset = Fixture.objects.filter(Q(project_id=project_id))
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
             return self.get_paginated_response(serializer.data)
-
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 

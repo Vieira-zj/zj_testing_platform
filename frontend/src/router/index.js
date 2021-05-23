@@ -4,7 +4,7 @@ import login from '@/views/login'
 import home from '@/views/home'
 import console from '@/views/console'
 import teprunner from '@/views/teprunner'
-import test from '@/views/test'
+import vuetest from '@/views/vuetest'
 
 Vue.use(VueRouter)
 
@@ -189,13 +189,13 @@ const routes = [
         ]
       },
       {
-        path: 'test',
-        name: 'test',
+        path: 'vuetest',
+        name: 'vuetest',
         meta: {
-          title: '组件测试',
+          title: 'Vue组件测试',
         },
-        component: test,
-        redirect: 'test/testCasesTree',
+        component: vuetest,
+        redirect: 'vuetest/testCasesTree',
         // children inherit from home and test view
         children: [
           {
@@ -203,21 +203,21 @@ const routes = [
             meta: {
               title: 'TestCasesTree',
             },
-            component: () => import('@/views/test/TestCasesTree'),
+            component: () => import('@/views/vuetest/TestCasesTree'),
           },
           {
             path: 'testCasesHeTree',
             meta: {
               title: 'TestCasesHeTree',
             },
-            component: () => import('@/views/test/TCsHeTree'),
+            component: () => import('@/views/vuetest/TCsHeTree'),
           },
           {
             path: 'testCasesDraggableTree',
             meta: {
               title: 'TestCasesDraggableTree',
             },
-            component: () => import('@/views/test/TCsDraggableTree'),
+            component: () => import('@/views/vuetest/TCsDraggableTree'),
           },
         ],
       },
