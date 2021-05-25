@@ -13,6 +13,7 @@
                  :showEnv="false"
                  :project-disabled="true"></project-env>
 
+    <!-- 主路由 -->
     <div class="plan-manage-index"
          v-if="$route.name === 'plan'">
       <div style="float: left"
@@ -183,6 +184,8 @@
         </div>
       </div>
     </div>
+
+    <!-- 子路由 <= this.$router.push() -->
     <router-view></router-view>
   </div>
 </template>
@@ -204,6 +207,7 @@ export default {
     }
   },
   watch: {
+    // 新增或修改后，返回测试计划主页面，立即展示新数据
     $route: {
       handler(to) {
         if (to.name === 'plan') {
@@ -333,6 +337,7 @@ export default {
       this.getTableData()
     },
     gotoPlanEditor(row) {
+      // 保存数据（子页面使用），然后跳转路由
       let rowInfo = JSON.stringify(row)
       localStorage.setItem('planInfo', rowInfo)
       this.$router.push({

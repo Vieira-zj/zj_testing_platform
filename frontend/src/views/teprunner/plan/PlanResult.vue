@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 主路由 展示计划运行结果 -->
     <div v-if="$route.name === 'planResult'">
       <div class="content-info">
         <div class="content-header">
@@ -81,6 +82,7 @@
       </div>
     </div>
 
+    <!-- 子路由 展示用例运行结果 caseResult -->
     <router-view></router-view>
   </div>
 </template>

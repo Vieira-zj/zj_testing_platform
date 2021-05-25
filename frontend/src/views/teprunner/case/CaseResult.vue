@@ -127,46 +127,48 @@ export default {
       this.$http
         .post(`/teprunner/cases/${this.id}/run`, params)
         .then(({ data: { msg } }) => {
+          // 先显示 success 消息，再通过 websocket 异步获取用例执行结果
           this.$notifyMessage(msg, { type: 'success' })
           this.getResult()
         })
         .finally(() => {})
     },
     getResult() {
-      const _this = this
       if (typeof WebSocket == 'undefined') {
         this.$notifyMessage('当前浏览器不支持WebSocket，请使用谷歌浏览器！', {
           type: 'warning',
         })
-      } else {
-        const socketUrl = `${process.env.VUE_APP_wsServer}/ws/teprunner/cases/${this.id}/result/`
-        this.socket = new WebSocket(socketUrl)
-        this.socket.onopen = function () {
-          // console.log("WebSocket Open");
-          // 向后端发送消息
-          _this.socket.send(
-            JSON.stringify({
-              token: localStorage.getItem('token'),
-            })
-          )
-        }
-        this.socket.onmessage = ({ data }) => {
-          data = JSON.parse(data)
-          _this.caseForm.desc = data.desc
-          _this.caseForm.creatorNickname = data.creatorNickname
-          _this.caseForm.result = data.result
-          _this.caseForm.elapsed = data.elapsed
-          _this.caseForm.output = data.output + '\n'
-          _this.caseForm.runEnv = data.runEnv
-          _this.caseForm.runUserNickname = data.runUserNickname
-          _this.caseForm.runTime = data.runTime
-        }
-        this.socket.onerror = function () {
-          _this.$notifyMessage('WebSocket Error', { type: 'error' })
-        }
-        this.socket.onclose = function () {
-          // console.log("WebSocket Close");
-        }
+        return
+      }
+      const _this = this
+      // 前后端是以用例id作为 channel id 相互传递消息，多个浏览器的数据不会相互干扰
+      const socketUrl = `${process.env.VUE_APP_wsServer}/ws/teprunner/cases/${this.id}/result/`
+      this.socket = new WebSocket(socketUrl)
+      this.socket.onopen = function () {
+        // 向后端发送消息
+        // console.log("WebSocket Open")
+        _this.socket.send(
+          JSON.stringify({
+            token: localStorage.getItem('token'),
+          })
+        )
+      }
+      this.socket.onmessage = ({ data }) => {
+        data = JSON.parse(data)
+        _this.caseForm.desc = data.desc
+        _this.caseForm.creatorNickname = data.creatorNickname
+        _this.caseForm.result = data.result
+        _this.caseForm.elapsed = data.elapsed
+        _this.caseForm.output = data.output + '\n'
+        _this.caseForm.runEnv = data.runEnv
+        _this.caseForm.runUserNickname = data.runUserNickname
+        _this.caseForm.runTime = data.runTime
+      }
+      this.socket.onerror = function () {
+        _this.$notifyMessage('WebSocket Error', { type: 'error' })
+      }
+      this.socket.onclose = function () {
+        // console.log("WebSocket Close")
       }
     },
     onEditCase() {

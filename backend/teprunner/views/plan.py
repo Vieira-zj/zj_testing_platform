@@ -17,7 +17,6 @@ class PlanViewSet(ModelViewSet):
     serializer_class = PlanSerializer
 
     def list(self, request, *args, **kwargs):
-        # 查询
         project_id = request.GET.get("projectId")
         query = Q(project_id=project_id)
         plan_name = request.GET.get("name")
@@ -33,15 +32,14 @@ class PlanViewSet(ModelViewSet):
         return Response(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
-        # 必须先删除关联测试用例，才能删除测试计划
+        # 重写 destroy 方法，必须先删除关联测试用例，才能删除测试计划
         plan_id = kwargs["pk"]
         plan_case = PlanCase.objects.filter(plan_id=plan_id)
         if plan_case:
             return Response({"msg": "请先删除关联测试用例"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        else:
-            instance = self.get_object()
-            self.perform_destroy(instance)
-            return Response(status=status.HTTP_204_NO_CONTENT)
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     def perform_destroy(self, instance):
         instance.delete()
@@ -123,7 +121,7 @@ def result(request, *args, **kwargs):
 @api_view(['GET'])
 def case_result(request, *args, **kwargs):
     """
-    返回测试计划的每条用例的运行结果。
+    返回测试计划的某条用例的运行结果。
     """
     plan_id = kwargs["plan_id"]
     case_id = kwargs["case_id"]

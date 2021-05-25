@@ -37,6 +37,7 @@
         <br />
         <br />
       </div>
+
       <div slot="footer"
            class="dialog-footer">
         <el-button @click="onResetForm">取 消</el-button>
@@ -71,6 +72,7 @@ export default {
       this.$emit('update:writeDownDialogFormVisible', false)
     },
     download() {
+      // 把后端返回的二进制文件字节流组装成压缩包，打开系统弹窗，下载文件
       this.loading = true
       let curProjectEnv = JSON.parse(localStorage.getItem('curProjectEnv'))
       let params = {

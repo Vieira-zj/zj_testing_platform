@@ -54,6 +54,7 @@
                      @click="resetSearchForm">重置</el-button>
         </el-form-item>
       </el-form>
+
       <div class="content-table">
         <el-table :header-cell-style="{
             background: 'rgba(144, 147, 153, 0.06)',
@@ -118,6 +119,7 @@
 
 <script>
 import SelectionPanel from '@/components/SelectionPanel'
+
 export default {
   components: { SelectionPanel },
   data() {

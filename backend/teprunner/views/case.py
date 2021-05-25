@@ -28,7 +28,7 @@ class CaseViewSet(ModelViewSet):
             query &= Q(id=case_id)
         desc = request.GET.get("desc")
         if desc:
-            # __icontains表示包含，相当于模糊匹配，i忽略大小写
+            # __icontains 表示包含，相当于模糊匹配，i忽略大小写
             query &= Q(desc__icontains=desc)
         api = request.GET.get("api")
         if api:

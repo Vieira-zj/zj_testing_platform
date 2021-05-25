@@ -6,6 +6,7 @@
                :width="dialogWidth"
                :close-on-click-modal="false"
                @close="onCancel(selectedItem)">
+
       <div class="select-panel-list-box"
            v-loading="loading">
         <el-table ref="table"
@@ -24,7 +25,6 @@
               </el-radio>
             </template>
           </el-table-column>
-
           <el-table-column v-else
                            type="selection"
                            width="48"
@@ -41,6 +41,7 @@
             </template>
           </el-table-column>
         </el-table>
+
         <div class="page-box clear"
              v-if="total && pageSize !== 10000">
           <el-button type="text"
@@ -58,6 +59,7 @@
                          :current-page.sync="page"
                          @current-change="pageChange"></el-pagination>
         </div>
+
         <div class="page-box clear"
              v-if="!total && otherOperation">
           <el-button type="text"
@@ -68,6 +70,7 @@
           </el-button>
         </div>
       </div>
+
       <span slot="footer"
             class="dialog-footer">
         <el-button @click="onCancel(selectedItem)">取消</el-button>
@@ -82,15 +85,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      isLoading: false,
-      templateRadio: '',
-      searchInfo: '',
-      page: 1,
-      selections: [],
-    }
-  },
   props: {
     dialogWidth: {
       type: String,
@@ -150,6 +144,15 @@ export default {
       type: Function,
       default: () => {},
     },
+  },
+  data() {
+    return {
+      isLoading: false,
+      templateRadio: '',
+      searchInfo: '',
+      page: 1,
+      selections: [],
+    }
   },
   methods: {
     onConfirm() {
@@ -224,6 +227,7 @@ export default {
   },
 }
 </script>
+
 <style lang="scss" scoped>
 ::v-deep.el-dialog__body {
   padding-top: 24px;

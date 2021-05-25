@@ -62,7 +62,7 @@ class CaseResult(BaseTable):
     case_id = models.IntegerField("用例id", null=False)
     result = models.CharField("运行结果", max_length=50, null=False)
     elapsed = models.CharField("耗时", max_length=50, null=False)
-    output = models.TextField("输出日志", null=False, default="")
+    output = models.TextField("输出日志", null=False, default="")  # 运行日志
     run_env = models.CharField("运行环境", max_length=20, null=False)
     run_user_nickname = models.CharField("运行用户昵称", null=False, max_length=64)
     run_time = models.DateTimeField("运行时间", auto_now=True)
@@ -77,6 +77,9 @@ class Plan(BaseTable):
 
 
 class PlanCase(BaseTable):
+    """
+    测试计划与用例关联关系。
+    """
     class Meta:
         db_table = "plan_case"
 

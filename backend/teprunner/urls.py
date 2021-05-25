@@ -45,9 +45,10 @@ urlpatterns = [
         "put": "update",
         "delete": "destroy"
     })),
-    path(r"cases/<int:pk>/copy", case.copy_case),
 
+    path(r"cases/<int:pk>/copy", case.copy_case),
     path(r"cases/<int:pk>/run", run.run_case),
+
     path(r"projects/<int:pk>/export", project.export_project),
 
     path(r"plans", plan.PlanViewSet.as_view({

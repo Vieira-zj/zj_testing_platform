@@ -96,6 +96,7 @@ export default {
       })
     },
     onSubmit() {
+      // 校验必填项
       this.$refs.caseFormRef.validate((valid) => {
         if (valid) {
           this.isLoading = true
@@ -103,7 +104,15 @@ export default {
         }
       })
     },
+    onRunCase() {
+      this.$refs.caseFormRef.validate((valid) => {
+        if (valid) {
+          this.onRequest('run')
+        }
+      })
+    },
     onRequest(type = '') {
+      // 处理用例保存或者运行
       const { desc, code } = this.caseForm
       let curProjectEnv = JSON.parse(localStorage.getItem('curProjectEnv'))
       let projectId = curProjectEnv.curProjectId
@@ -137,13 +146,6 @@ export default {
             })
           }
         })
-    },
-    onRunCase() {
-      this.$refs.caseFormRef.validate((valid) => {
-        if (valid) {
-          this.onRequest('run')
-        }
-      })
     },
   },
 }

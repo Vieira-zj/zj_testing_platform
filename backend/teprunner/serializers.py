@@ -52,6 +52,7 @@ class CaseListSerializer(serializers.ModelSerializer):
     creatorNickname = serializers.CharField(source="creator_nickname")
     projectId = serializers.CharField(source="project_id")
 
+    # 自定义序列化字段
     result = serializers.SerializerMethodField(required=False)
     elapsed = serializers.SerializerMethodField(required=False)
     runEnv = serializers.SerializerMethodField(required=False)
@@ -290,7 +291,8 @@ class PlanResultSerializer(serializers.ModelSerializer):
         return PlanResult.objects.get(id=instance.id).run_time.strftime("%Y-%m-%d %H:%M:%S")
 
     def to_representation(self, obj):
-        # output字段只在存库时使用，返回响应时不展示
+        # 重写 to_representation 方法，把不需要返回的字段pop移出去
+        # output 字段只在存库时使用，返回响应时不展示
         ret = super(PlanResultSerializer, self).to_representation(obj)
         ret.pop('output')
         return ret

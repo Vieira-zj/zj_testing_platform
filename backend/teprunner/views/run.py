@@ -199,7 +199,7 @@ def pytest_subprocess(cmd, case_id, run_env, run_user_nickname, plan_id=None):
 
 def save_case_result(pytest_result):
     """
-    subprocess 执行回调函数。
+    subprocess 回调函数。
     """
     output, cmd, case_id, run_env, run_user_nickname, plan_id = pytest_result.result()
     summary = output.split("\n")[-1]
@@ -264,7 +264,7 @@ def run_case(request, *args, **kwargs):
     user_id = request_jwt_decoded["user_id"]
     p = ProjectPath(project_id, run_env, user_id)
 
-    # 构建tep项目
+    # 构建tep项目 从db拉取代码写入文件
     if not os.path.exists(p.project_temp_dir()):
         os.chdir(p.projects_root)
         startproject(p.project_temp_name)
