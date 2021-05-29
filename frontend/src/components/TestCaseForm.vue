@@ -67,8 +67,15 @@ export default {
     tcName: String,
   },
   watch: {
-    tcName(val) {
-      this.ruleForm.name = val
+    tcName() {
+      this.ruleForm.name = this.tcName
+    },
+    ruleForm: {
+      handler(val) {
+        this.$emit('tc-name-change', val.name)
+      },
+      immediate: true,
+      deep: true,
     },
   },
   data() {

@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import axios from './service/axios'
-import Element from 'element-ui'
 
 import './assets/css/common.scss'
 import './assets/css/font.css'
@@ -23,6 +21,8 @@ Vue.use(Highlight)
 
 Vue.config.productionTip = false
 
+import axios from './service/axios'
+import Element from 'element-ui'
 Vue.use(axios)
 Vue.use(Element)
 

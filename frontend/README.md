@@ -1,6 +1,6 @@
 # Testing-platform Frontend
 
-> Testing platform frontend, vue + elementUI.
+> Testing platform frontend, Vue + ElementUI.
 
 ## Project setup
 
@@ -47,7 +47,7 @@ npm run serve
 
 ## Project Structure
 
-- `vue.config.js`: vue configurations.
-- `src/main.js`: vue entry point.
-- `src/App.vue`, `public/index.html`: vue template page.
+- `vue.config.js`: project configurations.
+- `src/main.js`: project entry point.
+- `src/App.vue`, `public/index.html`: project template page.
 

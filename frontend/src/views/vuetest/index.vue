@@ -11,7 +11,7 @@
          v-if="isTestCasesHeTree">
       <el-menu-item index="/vuetest/testCasesHeTree">
         <i class="el-icon-s-grid"></i>
-        <span slot="title">TCsHeTree</span>
+        <span slot="title">TCsVueHeTree</span>
       </el-menu-item>
     </div>
     <div slot="menuItem"

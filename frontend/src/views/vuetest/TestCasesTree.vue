@@ -29,16 +29,17 @@
       </div>
 
       <div slot="testcaseForm">
-        <test-case-form :tcName="tcName"></test-case-form>
+        <test-case-form :tcName="tcName"
+                        @tc-name-change="tcNameChange"></test-case-form>
       </div>
     </test-cases-template>
   </div>
 </template>
 
 <script>
-import TestCasesTemplate from './TestCasesTemplate'
 import TreeItem from '@/components/TreeItem'
 import TestCaseForm from '@/components/TestCaseForm'
+import TestCasesTemplate from './TestCasesTemplate'
 
 let mockTreeData = {
   name: 'My Root',
@@ -94,6 +95,7 @@ export default {
   },
   data() {
     return {
+      staffId: 0,
       treeData: mockTreeData,
       selectedItem: mockTreeData,
       tcName: '',
@@ -105,10 +107,10 @@ export default {
       item.select = true
       this.selectedItem = item
 
-      // TODO: fetch test case details
       if (item.children && item.children.length > 0) {
         this.tcName = ''
       } else {
+        // TODO: fetch test case details
         this.tcName = item.name
       }
     },
@@ -117,8 +119,16 @@ export default {
       this.addItem(item)
     },
     addItem(item) {
+      this.staffId++
+      let name = 'new stuff' + this.staffId
+      for (let child of item.children) {
+        if (child.name == name) {
+          this.$notifyMessage(`Item "${name}" exist!`)
+          return
+        }
+      }
       item.children.push({
-        name: 'new stuff',
+        name: name,
       })
       item.open = true
     },
@@ -134,7 +144,8 @@ export default {
       if (!root.children || root.children.length === 0) {
         return false
       }
-
+      // 问题：如果存在同名的item, 使用 name 做为删除条件会导致误删。
+      // 解决：使用 id
       for (let i = 0; i < root.children.length; i++) {
         let child = root.children[i]
         if (child.name === item.name) {
@@ -162,11 +173,13 @@ export default {
       if (!root.children || root.children.length === 0) {
         return false
       }
-
       handler(root)
       for (let i = 0; i < root.children.length; i++) {
         this.iterateTreeItem(root.children[i], handler)
       }
+    },
+    tcNameChange(newName) {
+      this.selectedItem.name = newName
     },
   },
 }

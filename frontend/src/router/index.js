@@ -210,7 +210,7 @@ const routes = [
             meta: {
               title: 'TestCasesHeTree',
             },
-            component: () => import('@/views/vuetest/TCsHeTree'),
+            component: () => import('@/views/vuetest/TCsVueHeTree'),
           },
           {
             path: 'testCasesDraggableTree',

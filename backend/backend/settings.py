@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'teprunner.apps.TeprunnerConfig',
     'channels',
+    'django_apscheduler',
 ]
 
 MIDDLEWARE = [
@@ -151,7 +152,7 @@ CORS_ORIGIN_WHITELIST = ()
 ASGI_APPLICATION = 'backend.asgi.application'
 
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
     }
 }
