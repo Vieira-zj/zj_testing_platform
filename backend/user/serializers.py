@@ -3,7 +3,9 @@
 from rest_framework import serializers
 from user.models import User, Role, UserRole
 
-# 定义db数据与前端json数据序列化操作
+"""
+Serializer 定义db数据与前端json数据序列化操作。
+"""
 
 
 class UserLoginSerializer(serializers.ModelSerializer):
@@ -19,7 +21,7 @@ class UserLoginSerializer(serializers.ModelSerializer):
         role_ids = [
             obj.role_id for obj in UserRole.objects.filter(user_id=user_id)]
         query_set = [Role.objects.get(id=role_id) for role_id in role_ids]
-        return "、".join([obj.name for obj in query_set])
+        return ",".join([obj.name for obj in query_set])
 
 
 class UserCreateSerializer(serializers.ModelSerializer):

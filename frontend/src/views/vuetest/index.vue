@@ -2,21 +2,21 @@
   <!-- 左侧导航栏 -->
   <nav-left>
     <div slot="menuItem">
-      <el-menu-item index="/vuetest/testCasesTree">
+      <el-menu-item index="/vuetest/testcasesTree">
         <i class="el-icon-menu"></i>
         <span slot="title">TestCasesTree</span>
       </el-menu-item>
     </div>
     <div slot="menuItem"
-         v-if="isTestCasesHeTree">
-      <el-menu-item index="/vuetest/testCasesHeTree">
+         v-if="isTCsVueHeTree">
+      <el-menu-item index="/vuetest/tcsVueHeTree">
         <i class="el-icon-s-grid"></i>
         <span slot="title">TCsVueHeTree</span>
       </el-menu-item>
     </div>
     <div slot="menuItem"
-         v-if="isTestCasesDraggableTree">
-      <el-menu-item index="/vuetest/testCasesDraggableTree">
+         v-if="isTCsDraggableTree">
+      <el-menu-item index="/vuetest/tcsDraggableTree">
         <i class="el-icon-s-grid"></i>
         <span slot="title">TCsDraggableTree</span>
       </el-menu-item>
@@ -33,8 +33,8 @@ export default {
   },
   data() {
     return {
-      isTestCasesHeTree: false,
-      isTestCasesDraggableTree: true,
+      isTCsVueHeTree: false,
+      isTCsDraggableTree: true,
     }
   },
 }

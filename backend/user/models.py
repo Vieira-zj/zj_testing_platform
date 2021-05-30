@@ -1,7 +1,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# orm, model建立了代码和数据库的映射
+"""
+orm: model建立了代码和数据库的映射。
+"""
 
 
 class BaseTable(models.Model):

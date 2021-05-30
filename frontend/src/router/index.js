@@ -195,27 +195,27 @@ const routes = [
           title: 'Vue组件测试',
         },
         component: vuetest,
-        redirect: 'vuetest/testCasesTree',
+        redirect: 'vuetest/testcasesTree',
         // children inherit from home and test view
         children: [
           {
-            path: 'testCasesTree',
+            path: 'testcasesTree',
             meta: {
               title: 'TestCasesTree',
             },
             component: () => import('@/views/vuetest/TestCasesTree'),
           },
           {
-            path: 'testCasesHeTree',
+            path: 'tcsVueHeTree',
             meta: {
-              title: 'TestCasesHeTree',
+              title: 'TCsVueHeTree',
             },
             component: () => import('@/views/vuetest/TCsVueHeTree'),
           },
           {
-            path: 'testCasesDraggableTree',
+            path: 'tcsDraggableTree',
             meta: {
-              title: 'TestCasesDraggableTree',
+              title: 'TCsDraggableTree',
             },
             component: () => import('@/views/vuetest/TCsDraggableTree'),
           },

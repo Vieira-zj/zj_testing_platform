@@ -259,7 +259,6 @@ class PlanCaseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PlanCase
-
         fields = ["planId", "caseId", "caseDesc", "caseCreatorNickname"]
 
     def get_caseDesc(self, instance):

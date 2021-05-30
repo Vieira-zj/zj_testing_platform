@@ -81,13 +81,15 @@ python manage.py makemigrations teprunner
 python manage.py migrate teprunner
 ```
 
-### Dijango 插件
+------
+
+## Dijango 插件
 
 - `corsheaders`: 解决跨域访问问题
 - `channels`: websocket实现
 - `django_apscheduler`: 定时任务
 
-#### Django 定时任务
+### Django 定时任务
 
 1. 在`INSTALLED_APPS`中添加`django_apscheduler`。
 

@@ -1,6 +1,5 @@
 <template>
   <!-- refer: https://cn.vuejs.org/v2/examples/tree-view.html -->
-  <!-- item -->
   <div>
     <div id="item"
          :class="{ item: true, bold: isFolder, select: isSelect }"

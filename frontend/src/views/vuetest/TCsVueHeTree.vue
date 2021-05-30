@@ -85,11 +85,11 @@ let treedata = [
 ]
 
 export default {
-  name: 'TestCasesHeTree',
+  name: 'TestCasesVueHeTree',
   components: {
     TestCasesTemplate,
-    HeTree: Tree.mixPlugins([Fold, Draggable]),
     TestCaseForm,
+    HeTree: Tree.mixPlugins([Fold, Draggable]),
   },
   data() {
     return {

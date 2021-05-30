@@ -5,11 +5,14 @@
     </div>
     <el-container class="test-container">
       <!-- test cases tree -->
-      <el-aside class="test-aside" width="25%">
+      <el-aside class="test-aside"
+                width="25%">
         <div style="border-bottom: 1px solid #ccc;">
           <slot name="toolsBar"></slot>
         </div>
-        <slot name="testcasesTree"></slot>
+        <el-scrollbar style="height: 800px">
+          <slot name="testcasesTree"></slot>
+        </el-scrollbar>
       </el-aside>
       <!-- test case form -->
       <el-container>
@@ -42,5 +45,8 @@ export default {
 .test-aside {
   border-right: 1px solid #eee;
   background-color: rgba(144, 147, 153, 0.06);
+}
+.el-scrollbar__wrap {
+  overflow-x: hidden;
 }
 </style>

@@ -123,7 +123,7 @@ export default {
       let name = 'new stuff' + this.staffId
       for (let child of item.children) {
         if (child.name == name) {
-          this.$notifyMessage(`Item "${name}" exist!`)
+          this.$notifyMessage(`Item "${name}" already exist!`)
           return
         }
       }

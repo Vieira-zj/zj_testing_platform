@@ -192,7 +192,7 @@ class SystemResetPassword(APIView):
 
 @api_view(['PUT'])
 def update_password(request, *args, **kwargs):
-    # 会对jwt进行解码, 获取到user_id
+    # 会对jwt进行解码，获取到user_id
     request_jwt = request.headers.get("Authorization").replace("Bearer ", "")
     request_jwt_decoded = jwt.decode(
         request_jwt, verify=False, algorithms=['HS512'])
