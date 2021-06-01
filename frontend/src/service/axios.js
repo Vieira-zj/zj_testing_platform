@@ -1,7 +1,7 @@
 import axios from 'axios'
 import router from '@/router'
 import { Notification } from 'element-ui'
-import { isJson } from '@/utils/commonMethods'
+import { isJson } from '@/utils/common'
 
 const clearCache = backCode => {
   let msg = backCode === 401 ? '登录失效，请重新登录' : '暂无权限，请重新登录'

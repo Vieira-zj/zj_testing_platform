@@ -154,7 +154,7 @@
 </template>
 
 <script>
-import { delConfirm, filterNullValue, resultColor } from '@/utils/commonMethods'
+import { delConfirm, filterNullValue, resultColor } from '@/utils/common'
 import WrapComponent from '@/components/WrapComponent'
 import ProjectEnv from '@/components/ProjectEnv'
 import writeDown from '@/views/teprunner/case/WriteDown'

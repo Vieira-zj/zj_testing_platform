@@ -92,7 +92,7 @@ import {
   blankSpaceReg,
 } from '@/utils/const'
 import SelectionPanel from '@/components/SelectionPanel'
-import { filterNullValue } from '@/utils/commonMethods'
+import { filterNullValue } from '@/utils/common'
 
 export default {
   name: 'AddAccount',

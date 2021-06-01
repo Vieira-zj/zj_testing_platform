@@ -77,3 +77,34 @@ export function resultColor (res) {
     return "rgb(0,153,117)";
   }
 }
+
+export function pure (node, withChildren) {
+  let t = Object.assign({}, node)
+  delete t._id
+  delete t.parent
+  delete t.children
+  delete t.open
+  delete t.active
+  delete t.style
+  delete t.class
+  delete t.innerStyle
+  delete t.innerClass
+  delete t.innerBackStyle
+  delete t.innerBackClass
+
+  let arr = Object.keys(t)
+  for (let i = 0; i < arr.length; i++) {
+    let key = arr[i]
+    if (key[0] === '_') {
+      delete t[key]
+    }
+  }
+
+  if (withChildren && node.children) {
+    t.children = node.children.slice()
+    t.children.forEach(function (v, k) {
+      t.children[k] = pure(v, withChildren)
+    })
+  }
+  return t
+}

@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { delConfirm, filterNullValue } from '@/utils/commonMethods'
+import { delConfirm, filterNullValue } from '@/utils/common'
 import WrapComponent from '@/components/WrapComponent'
 import AddProject from './AddProject'
 

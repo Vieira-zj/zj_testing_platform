@@ -87,7 +87,7 @@
 
 <script>
 import WrapComponent from '@/components/WrapComponent'
-import { delConfirm, filterNullValue } from '@/utils/commonMethods'
+import { delConfirm, filterNullValue } from '@/utils/common'
 import AddUser from './AddUser'
 
 export default {

@@ -5,7 +5,7 @@ import router from './router'
 import './assets/css/common.scss'
 import './assets/css/font.css'
 
-import { onResponse, notifyMessage } from './utils/commonMethods'
+import { onResponse, notifyMessage } from './utils/common'
 Vue.prototype.$notifyMessage = notifyMessage
 Vue.prototype.$handleResponese = onResponse
 

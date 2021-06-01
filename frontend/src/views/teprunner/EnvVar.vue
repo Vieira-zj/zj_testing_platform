@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { delConfirm, filterNullValue } from '@/utils/commonMethods'
+import { delConfirm, filterNullValue } from '@/utils/common'
 import WrapComponent from '@/components/WrapComponent'
 import ProjectEnv from '@/components/ProjectEnv'
 import AddEnvVar from '@/views/teprunner/AddEnvVar'

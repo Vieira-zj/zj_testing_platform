@@ -19,8 +19,9 @@
       <div slot="testcasesTree">
         <!-- draggable-tree refer: https://github.com/phphe/vue-draggable-nested-tree -->
         <!-- Note: tree scss cannot be "scoped". -->
-        <draggable-tree :data="treedata"
+        <draggable-tree :data="treeData"
                         :draggable="true"
+                        @drop="onDrop"
                         @nodeOpenChanged="onNodeOpenChanged">
           <!-- data is node, store is tree -->
           <div slot-scope="{ data, store }">
@@ -52,12 +53,13 @@
 </template>
 
 <script>
+import { pure } from '@/utils/common'
 import TestCasesTemplate from './TestCasesTemplate.vue'
 import TestCaseForm from '@/components/TestCaseForm'
 import { DraggableTree } from 'vue-draggable-nested-tree'
 import { breadthFirstSearch } from 'tree-helper'
 
-let treedata = [
+let treeData = [
   { text: 'node 1' },
   { text: 'node 2' },
   { text: 'node 3 undraggable', draggable: false },
@@ -101,12 +103,29 @@ export default {
   },
   data() {
     return {
-      treedata: treedata,
+      isDebug: false,
+      treeData: treeData,
       tcName: '',
       lastActiveNode: null,
     }
   },
   methods: {
+    onDrop(node, targetTree, oldTree) {
+      if (!this.isDebug) {
+        return
+      }
+      console.log('on drag drop')
+      if (oldTree) {
+        console.log('old tree:', oldTree)
+      }
+      console.log('new tree:', targetTree.getPureData())
+      console.log('store:', node._vm.store.getPureData())
+
+      let pureData = treeData.map((item) => {
+        return pure(item, true)
+      })
+      console.log('tree data:', pureData)
+    },
     onNodeOpenChanged(node) {
       console.log(`node [${node.text}] open=${node.open}`)
     },
@@ -128,12 +147,12 @@ export default {
       return node.children && node.children.length > 0
     },
     expandAll() {
-      breadthFirstSearch(this.treedata, (node) => {
+      breadthFirstSearch(this.treeData, (node) => {
         node.open = true
       })
     },
     collapseAll() {
-      breadthFirstSearch(this.treedata, (node) => {
+      breadthFirstSearch(this.treeData, (node) => {
         node.open = false
       })
     },
