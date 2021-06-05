@@ -9,28 +9,28 @@
         <el-tooltip content="Expand All"
                     placement="top">
           <i class="el-icon-s-unfold op-icon"
-             @click="unfoldAll"></i>
+             @click="onUnfoldAll"></i>
         </el-tooltip>
         <el-tooltip content="Collapse All"
                     placement="top">
           <i class="el-icon-s-fold op-icon"
-             @click="foldAll"></i>
+             @click="onFoldAll"></i>
         </el-tooltip>
       </div>
 
       <div slot="testcasesTree">
         <tree-item class="item"
                    :item="treeData"
-                   @focus-item="focusItem"
-                   @make-folder="makeFolder"
-                   @add-item="addItem"
-                   @remove-item="removeItem"
+                   @focus-item="onFocusItem"
+                   @make-folder="onMakeFolder"
+                   @add-item="onAddItem"
+                   @remove-item="onRemoveItem"
                    style="padding-left: 5px"></tree-item>
       </div>
 
       <div slot="testcaseForm">
         <test-case-form :tcName="tcName"
-                        @tc-name-change="tcNameChange"></test-case-form>
+                        @tc-name-change="onTcNameChange"></test-case-form>
       </div>
     </test-cases-template>
   </div>
@@ -102,23 +102,23 @@ export default {
     }
   },
   methods: {
-    focusItem(item) {
+    onFocusItem(item) {
       this.selectedItem.select = false
       item.select = true
       this.selectedItem = item
 
       if (item.children && item.children.length > 0) {
+        // TODO: 目录处理
         this.tcName = ''
       } else {
-        // TODO: fetch test case details
         this.tcName = item.name
       }
     },
-    makeFolder(item) {
+    onMakeFolder(item) {
       this.$set(item, 'children', [])
       this.addItem(item)
     },
-    addItem(item) {
+    onAddItem(item) {
       this.staffId++
       let name = 'new stuff' + this.staffId
       for (let child of item.children) {
@@ -132,7 +132,7 @@ export default {
       })
       item.open = true
     },
-    removeItem(item) {
+    onRemoveItem(item) {
       // 问题：删除一个元素后，会导致列表后面的元素重新加载（mount），item状态被重置。
       // 解决：将item状态保存在全局变量 treedata 中。
       this.removeItemFromTree(this.treeData, item)
@@ -157,13 +157,13 @@ export default {
         }
       }
     },
-    foldAll() {
+    onFoldAll() {
       let fold = function (item) {
         item.open = false
       }
       this.iterateTreeItem(this.treeData, fold)
     },
-    unfoldAll() {
+    onUnfoldAll() {
       let unfold = function (item) {
         item.open = true
       }
@@ -178,7 +178,7 @@ export default {
         this.iterateTreeItem(root.children[i], handler)
       }
     },
-    tcNameChange(newName) {
+    onTcNameChange(newName) {
       this.selectedItem.name = newName
     },
   },

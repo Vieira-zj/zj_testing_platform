@@ -53,8 +53,8 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary"
-                   @click="submitForm('ruleForm')">立即创建</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
+                   @click="onSubmitForm('ruleForm')">立即创建</el-button>
+        <el-button @click="onResetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -72,7 +72,9 @@ export default {
     },
     ruleForm: {
       handler(val) {
-        this.$emit('tc-name-change', val.name)
+        if (val.name) {
+          this.$emit('tc-name-change', val.name)
+        }
       },
       immediate: true,
       deep: true,
@@ -115,7 +117,7 @@ export default {
     }
   },
   methods: {
-    submitForm(formName) {
+    onSubmitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$message({
@@ -129,7 +131,7 @@ export default {
         }
       })
     },
-    resetForm(formName) {
+    onResetForm(formName) {
       this.$refs[formName].resetFields()
     },
   },
